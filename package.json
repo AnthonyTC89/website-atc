@@ -1,0 +1,31 @@
+{
+  "name": "restaurant-website",
+  "version": "1.0.0",
+  "proxy": "http://localhost:3001",
+  "description": "Restaurant website template",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "npm run build && npm run deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnthonyTC89/restaurant-website.git"
+  },
+  "keywords": [
+    "Restaurant",
+    "react",
+    "rails",
+    "template"
+  ],
+  "author": "AnthonyTC89",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AnthonyTC89/restaurant-website/issues"
+  },
+  "homepage": "https://github.com/AnthonyTC89/restaurant-website#readme"
+}

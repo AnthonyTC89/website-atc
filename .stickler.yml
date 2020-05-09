@@ -1,0 +1,7 @@
+---
+linters:
+    eslint:
+        config: './client/.eslintrc.json'
+    rubocop:
+      display_cop_names: true
+      fixer: true
