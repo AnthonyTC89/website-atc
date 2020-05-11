@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import updateSession from '../redux/actions/updateSession';
 import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
 import './Home.css';
 
 const Home = ({ session, history }) => {
@@ -23,6 +24,7 @@ const Home = ({ session, history }) => {
       <main>
         Main
       </main>
+      <Footer />
     </>
   );
 };
