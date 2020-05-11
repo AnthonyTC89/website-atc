@@ -2,6 +2,9 @@
   "signInInfo": {
     "title" : "Ingreso"
   },
+  "UserFormInfo": {
+    "title": "Usuario"
+  },
   "buttons": {
     "login": "Ingresar",
     "signin": "Registrar",

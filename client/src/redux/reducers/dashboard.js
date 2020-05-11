@@ -1,18 +1,11 @@
-// import Profile from '../../Components/Profile';
-// import Users from '../../Components/Users';
-// import AcademicPeriods from '../../Components/AcademicPeriods';
-// import Courses from '../../Components/Courses';
-// import Subjects from '../../Components/Subjects';
-// import CoursesShow from '../../Components/CoursesShow';
-// import SubjectsShow from '../../Components/SubjectsShow';
-// import Schedule from '../../Components/Schedule';
+import UserForm from '../../Components/UserForm';
 
 const defaultDashboard = {
-  // Component: Courses,
+  Component: UserForm,
 };
 
 const collection = {
-  // Profile,
+  UserForm,
   // Users,
   // AcademicPeriods,
   // Courses,

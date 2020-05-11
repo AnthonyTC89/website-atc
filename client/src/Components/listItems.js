@@ -12,7 +12,7 @@ export const mainListItems = (
       <ListItemIcon>
         <AccountCircleIcon />
       </ListItemIcon>
-      <ListItemText primary="Perfil" />
+      <ListItemText primary="Usuario" />
     </ListItem>
   </div>
 );

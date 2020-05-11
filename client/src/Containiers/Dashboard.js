@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -97,7 +99,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Dashboard() {
+const Dashboard = ({ dashboard }) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
   const handleDrawerOpen = () => {
@@ -106,7 +108,7 @@ export default function Dashboard() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const { Component } = dashboard;
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -146,6 +148,7 @@ export default function Dashboard() {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+          <Component />
           <Box pt={4}>
             <Footer />
           </Box>
@@ -153,4 +156,16 @@ export default function Dashboard() {
       </main>
     </div>
   );
-}
+};
+
+Dashboard.propTypes = {
+  dashboard: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  dashboard: state.dashboard,
+});
+
+const DashboardWrapper = connect(mapStateToProps, null)(Dashboard);
+
+export default DashboardWrapper;
