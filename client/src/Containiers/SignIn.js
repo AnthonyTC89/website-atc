@@ -5,27 +5,16 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import updateSession from '../redux/actions/updateSession';
-import { signInInfo, buttons } from '../Info.json';
+import Footer from '../Components/Footer';
 
-function Copyright() {
-  const year = new Date().getFullYear();
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {` ${year} © `}
-      <Link color="inherit" href="https://material-ui.com/">
-        AnthonyTC89
-      </Link>
-      . All Rights Reserved.
-    </Typography>
-  );
-}
+import { signInInfo, buttons } from '../Info.json';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -35,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
   },
   avatar: {
-    margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
@@ -53,7 +41,7 @@ const SignIn = ({ session, history, changeSession }) => {
 
   const classes = useStyles();
   const { title } = signInInfo;
-  const { login, back } = buttons;
+  const { login } = buttons;
 
   useEffect(() => {
     console.log(session);
@@ -68,15 +56,18 @@ const SignIn = ({ session, history, changeSession }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(username, password);
+    history.push('/dashboard');
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
+        <IconButton onClick={closeSignIn}>
+          <Avatar className={classes.avatar}>
+            <ArrowBackIcon />
+          </Avatar>
+        </IconButton>
         <Typography component="h1" variant="h5">
           {title}
         </Typography>
@@ -117,17 +108,9 @@ const SignIn = ({ session, history, changeSession }) => {
             {login}
           </Button>
         </form>
-        <Button
-          type="button"
-          color="secondary"
-          variant="outlined"
-          onClick={closeSignIn}
-        >
-          {back}
-        </Button>
       </div>
       <Box mt={8}>
-        <Copyright />
+        <Footer />
       </Box>
     </Container>
   );
