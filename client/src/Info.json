@@ -1,0 +1,25 @@
+{
+  "signInInfo": {
+    "title" : "Ingreso"
+  },
+  "buttons": {
+    "login": "Ingresar",
+    "signin": "Registrar",
+    "add": "Agregar",
+    "update": "Actualizar",
+    "wait" : "Espere...",
+    "edit": "Editar",
+    "remove": "Eliminar",
+    "active": "Activar",
+    "inactive": "Desactivar",
+    "create": "Nuevo",
+    "back": "Volver",
+    "upgrade": "↑",
+    "downgrade": "↓",
+    "details": "Detalles",
+    "subjects": "Temas",
+    "schedule": "Horario",
+    "upload": "Guardar",
+    "download": "Descargar"
+  }
+}
