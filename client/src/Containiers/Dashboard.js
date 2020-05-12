@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
@@ -101,13 +101,20 @@ const useStyles = makeStyles((theme) => ({
 
 const Dashboard = ({ dashboard }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const [showComponent, setShowComponent] = React.useState(true);
+
   const handleDrawerOpen = () => {
     setOpen(true);
+    setShowComponent(window.innerWidth >= theme.breakpoints.width('sm'));
   };
+
   const handleDrawerClose = () => {
     setOpen(false);
+    setShowComponent(true);
   };
+
   const { Component } = dashboard;
   return (
     <div className={classes.root}>
@@ -147,12 +154,14 @@ const Dashboard = ({ dashboard }) => {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
-        <Container maxWidth="lg" className={classes.container}>
-          <Component />
-          <Box pt={4}>
-            <Footer />
-          </Box>
-        </Container>
+        {showComponent ? (
+          <Container maxWidth="lg" className={classes.container}>
+            <Component />
+            <Box pt={4}>
+              <Footer />
+            </Box>
+          </Container>
+        ) : null }
       </main>
     </div>
   );
