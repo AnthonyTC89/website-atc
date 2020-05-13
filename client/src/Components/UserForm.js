@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { UserFormInfo, buttons } from '../Info.json';
+import LoadingGif from './LoadingGif';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -30,15 +34,36 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserForm = () => {
+const UserForm = ({ session }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
 
   const classes = useStyles();
   const { title } = UserFormInfo;
   const { update } = buttons;
+
+  const getUserInfo = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.get('/api/users_info', { params: { token: session.user } });
+      setUsername(res.data.username);
+      setEmail(res.data.email);
+    } catch (err) {
+      setMessage('error');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getUserInfo();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -49,6 +74,10 @@ const UserForm = () => {
         <Typography component="h1" variant="h5">
           {title}
         </Typography>
+        <Typography variant="subtitle2" color="error" align="center">
+          {message}
+        </Typography>
+        <LoadingGif visible={loading} />
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
@@ -121,4 +150,14 @@ const UserForm = () => {
   );
 };
 
-export default UserForm;
+UserForm.propTypes = {
+  session: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  session: state.session,
+});
+
+const UserFormWrapper = connect(mapStateToProps, null)(UserForm);
+
+export default UserFormWrapper;

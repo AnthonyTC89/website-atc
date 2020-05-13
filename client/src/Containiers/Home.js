@@ -1,16 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-// import updateSession from '../redux/actions/updateSession';
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 
-const Home = ({ session, history }) => {
-  useEffect(() => {
-    console.log(session);
-    console.log(history);
-  });
-
+const Home = ({ history }) => {
   const openSignIn = () => (
     history.push('/login')
   );
@@ -29,18 +23,12 @@ const Home = ({ session, history }) => {
 };
 
 Home.propTypes = {
-  session: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  // changeSession: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   session: state.session,
 });
-
-// const mapDispatchToProps = (dispatch) => ({
-//   changeSession: (session) => dispatch(updateSession(session)),
-// });
 
 const HomeWrapper = connect(mapStateToProps, null)(Home);
 

@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import updateSession from '../redux/actions/updateSession';
 import Footer from '../Components/Footer';
-
+import LoadingGif from '../Components/LoadingGif';
 import { signInInfo, buttons } from '../Info.json';
 
 const useStyles = makeStyles((theme) => ({
@@ -89,6 +89,7 @@ const SignIn = ({ session, history, changeSession }) => {
             {error}
           </Typography>
         )}
+        <LoadingGif visible={loading} />
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"

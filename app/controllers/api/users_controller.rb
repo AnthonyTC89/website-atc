@@ -1,6 +1,6 @@
 module Api
   class UsersController < ApplicationController
-    before_action :set_user, only: [:show, :update, :destroy]
+    before_action :set_user_by_id, only: [:show, :update, :destroy]
 
     # GET /users
     def index
@@ -12,6 +12,17 @@ module Api
     # GET /users/1
     def show
       render json: @user
+    end
+
+    # GET /users_info
+    def info
+      p "params >>> #{params}"
+      @user = User.find_by(token: params[:token])
+      if @user 
+        render json: { username: @user.username, email: @user.email }, status: :accepted
+      else
+        render status: :not_found
+      end
     end
 
     # POST /users/login
@@ -68,7 +79,7 @@ module Api
 
     private
       # Use callbacks to share common setup or constraints between actions.
-      def set_user
+      def set_user_by_id
         @user = User.find(params[:id])
       end
 

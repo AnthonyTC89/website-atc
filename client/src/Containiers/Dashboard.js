@@ -20,6 +20,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { mainListItems, secondaryListItems } from '../Components/listItems';
 import Footer from '../Components/Footer';
 import updateSession from '../redux/actions/updateSession';
+import LoadingGif from '../Components/LoadingGif';
 
 const drawerWidth = 240;
 
@@ -107,7 +108,7 @@ const Dashboard = ({ dashboard, history, session, changeSession }) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [showComponent, setShowComponent] = useState(true);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const handleDrawerOpen = () => {
@@ -122,16 +123,16 @@ const Dashboard = ({ dashboard, history, session, changeSession }) => {
 
   const handleLogout = async () => {
     setError(null);
-    // setLoading(true);
+    setLoading(true);
     try {
       const data = { token: session.user };
       await axios.post('/api/users/logout', data);
       setError(null);
-      // setLoading(false);
+      setLoading(false);
       changeSession(null);
     } catch (err) {
+      setLoading(false);
       setError('error');
-      // setLoading(false);
     }
   };
 
@@ -195,6 +196,7 @@ const Dashboard = ({ dashboard, history, session, changeSession }) => {
                 {error}
               </Typography>
             )}
+            <LoadingGif visible={loading} />
             <Component />
             <Box pt={4}>
               <Footer />

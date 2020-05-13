@@ -1,0 +1,9 @@
+.picture-loading {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.icon-loading {
+  max-width: 3rem;
+}
