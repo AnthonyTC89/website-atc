@@ -1,7 +1,6 @@
 {
   "name": "restaurant-website",
   "version": "1.0.0",
-  "proxy": "http://localhost:3001",
   "description": "Restaurant website template",
   "main": "index.js",
   "directories": {

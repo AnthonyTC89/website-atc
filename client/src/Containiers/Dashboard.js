@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,8 +16,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { mainListItems, secondaryListItems } from '../Components/listItems';
 import Footer from '../Components/Footer';
+import updateSession from '../redux/actions/updateSession';
 
 const drawerWidth = 240;
 
@@ -99,11 +102,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard = ({ dashboard }) => {
+const Dashboard = ({ dashboard, history, session, changeSession }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [showComponent, setShowComponent] = React.useState(true);
+  const [open, setOpen] = useState(false);
+  const [showComponent, setShowComponent] = useState(true);
+  // const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -114,6 +119,27 @@ const Dashboard = ({ dashboard }) => {
     setOpen(false);
     setShowComponent(true);
   };
+
+  const handleLogout = async () => {
+    setError(null);
+    // setLoading(true);
+    try {
+      const data = { token: session.user };
+      await axios.post('/api/users/logout', data);
+      setError(null);
+      // setLoading(false);
+      changeSession(null);
+    } catch (err) {
+      setError('error');
+      // setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!session.isLoggedIn) {
+      history.push('/');
+    }
+  });
 
   const { Component } = dashboard;
   return (
@@ -133,6 +159,14 @@ const Dashboard = ({ dashboard }) => {
           <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
             Dashboard
           </Typography>
+          <IconButton
+            edge="end"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleLogout}
+          >
+            <ExitToAppIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -156,6 +190,11 @@ const Dashboard = ({ dashboard }) => {
         <div className={classes.appBarSpacer} />
         {showComponent ? (
           <Container maxWidth="lg" className={classes.container}>
+            {error === null ? null : (
+              <Typography variant="subtitle2" color="error" align="center">
+                {error}
+              </Typography>
+            )}
             <Component />
             <Box pt={4}>
               <Footer />
@@ -169,12 +208,20 @@ const Dashboard = ({ dashboard }) => {
 
 Dashboard.propTypes = {
   dashboard: PropTypes.object.isRequired,
+  session: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  changeSession: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   dashboard: state.dashboard,
+  session: state.session,
 });
 
-const DashboardWrapper = connect(mapStateToProps, null)(Dashboard);
+const mapDispatchToProps = (dispatch) => ({
+  changeSession: (session) => dispatch(updateSession(session)),
+});
+
+const DashboardWrapper = connect(mapStateToProps, mapDispatchToProps)(Dashboard);
 
 export default DashboardWrapper;

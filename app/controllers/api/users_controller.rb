@@ -19,21 +19,34 @@ module Api
       @user = User.find_by(username: params[:username])
       if @user 
         if @user.authenticate(params[:password_digest])
-          render json: { @user.token }, status: :accepted
+          @user.regenerate_token
+          render json: @user.token, status: :accepted
         else
-          render json: @user.errors.full_messages, status: :unauthorized
+          render json: @user.errors, status: :unauthorized
         end
       else
-        render json: @user.errors.full_messages, status: :not_found
+        render json: @user.errors, status: :not_found
       end
     end
+
+    # POST /users/logout
+    def logout
+      @user = User.find_by(token: params[:token])
+      if @user 
+        @user.update(token: nil)
+        render status: :accepted
+      else
+        render json: @user.errors, status: :not_found
+      end
+    end
+
 
     # POST /users
     def create
       @user = User.new(user_params)
 
       if @user.save
-        render json: @user, status: :created, location: @user
+        render json: @user, status: :created
       else
         render json: @user.errors, status: :unprocessable_entity
       end

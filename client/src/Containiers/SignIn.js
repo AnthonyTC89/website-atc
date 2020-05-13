@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
@@ -36,27 +37,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignIn = ({ session, history, changeSession }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('admin');
+  const [password, setPassword] = useState('admin');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const classes = useStyles();
   const { title } = signInInfo;
-  const { login } = buttons;
+  const { login, wait } = buttons;
 
   useEffect(() => {
-    console.log(session);
-    console.log(history);
-    console.log(changeSession);
+    if (session.isLoggedIn) {
+      history.push('/dashboard');
+    }
   });
 
   const closeSignIn = () => (
     history.push('/')
   );
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(username, password);
-    history.push('/dashboard');
+    setError(null);
+    setLoading(true);
+    try {
+      const data = { username, password_digest: password };
+      const res = await axios.post('/api/users/login', data);
+      setError(null);
+      setLoading(false);
+      changeSession(res.data);
+    } catch (err) {
+      setError('error');
+      setLoading(false);
+    }
   };
 
   return (
@@ -71,7 +84,12 @@ const SignIn = ({ session, history, changeSession }) => {
         <Typography component="h1" variant="h5">
           {title}
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        {error === null ? null : (
+          <Typography variant="subtitle2" color="error" gutterBottom>
+            {error}
+          </Typography>
+        )}
+        <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -92,7 +110,7 @@ const SignIn = ({ session, history, changeSession }) => {
             fullWidth
             id="password"
             name="password"
-            label="Password"
+            label="contraseña"
             type="password"
             value={password}
             autoComplete="current-password"
@@ -105,7 +123,7 @@ const SignIn = ({ session, history, changeSession }) => {
             color="primary"
             className={classes.submit}
           >
-            {login}
+            {loading ? wait : login}
           </Button>
         </form>
       </div>
