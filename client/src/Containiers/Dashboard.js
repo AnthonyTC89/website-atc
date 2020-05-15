@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -20,7 +20,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { mainListItems, secondaryListItems } from '../Components/listItems';
 import Footer from '../Components/Footer';
 import updateSession from '../redux/actions/updateSession';
-import LoadingGif from '../Components/LoadingGif';
+// import LoadingGif from '../Components/LoadingGif';
 
 const drawerWidth = 240;
 
@@ -108,8 +108,8 @@ const Dashboard = ({ dashboard, history, session, changeSession }) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const [showComponent, setShowComponent] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState(null);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -122,18 +122,7 @@ const Dashboard = ({ dashboard, history, session, changeSession }) => {
   };
 
   const handleLogout = async () => {
-    setError(null);
-    setLoading(true);
-    try {
-      const data = { token: session.user };
-      await axios.post('/api/users/logout', data);
-      setError(null);
-      setLoading(false);
-      changeSession(null);
-    } catch (err) {
-      setLoading(false);
-      setError('error');
-    }
+    changeSession(null);
   };
 
   useEffect(() => {
@@ -191,12 +180,7 @@ const Dashboard = ({ dashboard, history, session, changeSession }) => {
         <div className={classes.appBarSpacer} />
         {showComponent ? (
           <Container maxWidth="lg" className={classes.container}>
-            {error === null ? null : (
-              <Typography variant="subtitle2" color="error" align="center">
-                {error}
-              </Typography>
-            )}
-            <LoadingGif visible={loading} />
+            {/* <LoadingGif visible={loading} /> */}
             <Component />
             <Box pt={4}>
               <Footer />

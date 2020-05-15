@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
@@ -61,13 +62,13 @@ const SignIn = ({ session, history, changeSession }) => {
     setError(null);
     setLoading(true);
     try {
-      const data = { username, password_digest: password };
-      const res = await axios.post('/api/users/login', data);
+      const token = jwt.sign({ username, password }, 'secret');
+      const res = await axios.post('/api/users/login', { token });
       setError(null);
       setLoading(false);
       changeSession(res.data);
     } catch (err) {
-      setError('error');
+      setError(err.response.statusText);
       setLoading(false);
     }
   };
@@ -123,6 +124,7 @@ const SignIn = ({ session, history, changeSession }) => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={loading}
           >
             {loading ? wait : login}
           </Button>

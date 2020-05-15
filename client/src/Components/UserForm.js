@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
@@ -44,23 +46,49 @@ const UserForm = ({ session }) => {
 
   const classes = useStyles();
   const { title } = UserFormInfo;
-  const { update } = buttons;
+  const { update, wait } = buttons;
 
-  const getUserInfo = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       setLoading(true);
-      const res = await axios.get('/api/users_info', { params: { token: session.user } });
-      setUsername(res.data.username);
-      setEmail(res.data.email);
+      const privateKey = process.env.REACT_APP_PRIVATE_KEY_JWT;
+      const user = jwt.verify(session.user, privateKey);
+      const payload = { id: user.id, email };
+      if (password !== '') {
+        if (password.trim() !== confirmation.trim()) {
+          throw new Error('Contraseña');
+        }
+        const salt = parseInt(process.env.REACT_APP_BCRYPT_SALT, 10);
+        payload.password_digest = bcrypt.hashSync(password, salt);
+      }
+      const token = jwt.sign(payload, privateKey);
+      await axios.put('api/users_update', { token });
+      setMessage('success');
+      setPassword('');
+      setConfirmation('');
     } catch (err) {
-      setMessage('error');
+      if (err.response) {
+        setMessage(err.response.statusText);
+      } else {
+        setMessage(err.message);
+      }
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    getUserInfo();
+    if (session.user) {
+      try {
+        const privateKey = process.env.REACT_APP_PRIVATE_KEY_JWT;
+        const user = jwt.verify(session.user, privateKey);
+        setUsername(user.username);
+        setEmail(user.email);
+      } catch (err) {
+        setMessage(err.message);
+      }
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -78,7 +106,7 @@ const UserForm = ({ session }) => {
           {message}
         </Typography>
         <LoadingGif visible={loading} />
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -141,8 +169,9 @@ const UserForm = ({ session }) => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={loading}
           >
-            {update}
+            {loading ? wait : update}
           </Button>
         </form>
       </div>
