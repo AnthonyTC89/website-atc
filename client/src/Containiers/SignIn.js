@@ -7,7 +7,6 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -74,66 +73,66 @@ const SignIn = ({ session, history, changeSession }) => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <IconButton onClick={closeSignIn}>
-          <Avatar className={classes.avatar}>
-            <ArrowBackIcon />
-          </Avatar>
-        </IconButton>
-        <Typography component="h1" variant="h5">
-          {title}
-        </Typography>
-        {error === null ? null : (
-          <Typography variant="subtitle2" color="error" gutterBottom>
-            {error}
+    <>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <IconButton onClick={closeSignIn}>
+            <Avatar className={classes.avatar}>
+              <ArrowBackIcon />
+            </Avatar>
+          </IconButton>
+          <Typography component="h1" variant="h5">
+            {title}
           </Typography>
-        )}
-        <LoadingGif visible={loading} />
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="username"
-            label="usuario"
-            name="username"
-            value={username}
-            autoComplete="username"
-            onChange={(e) => setUsername(e.target.value)}
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="password"
-            name="password"
-            label="contraseña"
-            type="password"
-            value={password}
-            autoComplete="current-password"
-            onChange={event => setPassword(event.target.value)}
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-            disabled={loading}
-          >
-            {loading ? wait : login}
-          </Button>
-        </form>
-      </div>
-      <Box mt={8}>
-        <Footer />
-      </Box>
-    </Container>
+          {error === null ? null : (
+            <Typography variant="subtitle2" color="error" gutterBottom>
+              {error}
+            </Typography>
+          )}
+          <LoadingGif visible={loading} />
+          <form className={classes.form} onSubmit={handleSubmit}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="username"
+              label="usuario"
+              name="username"
+              value={username}
+              autoComplete="username"
+              onChange={(e) => setUsername(e.target.value)}
+              autoFocus
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="password"
+              name="password"
+              label="contraseña"
+              type="password"
+              value={password}
+              autoComplete="current-password"
+              onChange={event => setPassword(event.target.value)}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              disabled={loading}
+            >
+              {loading ? wait : login}
+            </Button>
+          </form>
+        </div>
+      </Container>
+      <Footer />
+    </>
   );
 };
 

@@ -10,14 +10,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  main: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2),
-  },
   footer: {
-    padding: theme.spacing(3, 2),
-    // backgroundColor:
-    //   theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+    padding: theme.spacing(2, 2),
+    position: 'fixed',
+    bottom: 0,
+    width: '100%',
   },
 }));
 
