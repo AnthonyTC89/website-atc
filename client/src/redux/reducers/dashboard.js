@@ -1,12 +1,13 @@
 import UserForm from '../../Components/UserForm';
+import UserList from '../../Components/UserList';
 
 const defaultDashboard = {
-  Component: UserForm,
+  Component: UserList,
 };
 
 const collection = {
   UserForm,
-  // Users,
+  UserList,
   // AcademicPeriods,
   // Courses,
   // Subjects,

@@ -9,6 +9,13 @@ module Api
     #   render json: @users
     # end
 
+    # GET /users_list
+    def list
+      decode(params[:token])
+      @users = User.select(:id, :username, :email, :status)
+      render json: encode(@users)
+    end
+
     # GET /users/1
     # def show
     #   render json: @user

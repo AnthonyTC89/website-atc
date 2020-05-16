@@ -5,6 +5,9 @@
   "UserFormInfo": {
     "title": "Usuario"
   },
+  "UserListInfo": {
+    "title": "Usuarios"
+  },
   "buttons": {
     "login": "Ingresar",
     "signin": "Registrar",

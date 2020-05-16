@@ -16,7 +16,7 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { mainListItems, secondaryListItems } from '../Components/listItems';
+import { mainListItems, secondaryListItems, adminListItems } from '../Components/listItems';
 import updateSession from '../redux/actions/updateSession';
 // import LoadingGif from '../Components/LoadingGif';
 
@@ -174,6 +174,8 @@ const Dashboard = ({ dashboard, history, session, changeSession }) => {
           <List>{mainListItems}</List>
           <Divider />
           <List>{secondaryListItems}</List>
+          <Divider />
+          <List>{adminListItems}</List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />

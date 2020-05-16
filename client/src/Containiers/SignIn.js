@@ -61,7 +61,8 @@ const SignIn = ({ session, history, changeSession }) => {
     setError(null);
     setLoading(true);
     try {
-      const token = jwt.sign({ username, password }, 'secret');
+      const privateKey = process.env.REACT_APP_PRIVATE_KEY_JWT;
+      const token = jwt.sign({ username, password }, privateKey);
       const res = await axios.post('/api/users/login', { token });
       setError(null);
       setLoading(false);
