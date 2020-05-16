@@ -13,7 +13,7 @@ module Api
     def list
       decode(params[:token])
       @users = User.select(:id, :username, :email, :status)
-      render json: encode(@users)
+      render json: @users, status: :accepted
     end
 
     # GET /users/1
