@@ -8,6 +8,22 @@
   "UserListInfo": {
     "title": "Usuarios"
   },
+  "DashboardInfo": {
+    "mainListItems": [
+      { 
+        "name": "Usuario",
+        "component": "UserForm",
+        "icon": "AccountCircleIcon"
+      }
+    ],
+    "adminListItems": [
+      { 
+        "name": "Usuarios",
+        "component": "UserList",
+        "icon": "PeopleIcon"
+      }
+    ]
+  },
   "buttons": {
     "login": "Ingresar",
     "signin": "Registrar",

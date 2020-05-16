@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 // import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,11 +17,25 @@ import Container from '@material-ui/core/Container';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import { mainListItems, secondaryListItems, adminListItems } from '../Components/listItems';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import PeopleIcon from '@material-ui/icons/People';
 import updateSession from '../redux/actions/updateSession';
+import updateDashboard from '../redux/actions/updateDashboard';
 // import LoadingGif from '../Components/LoadingGif';
+import { DashboardInfo } from '../Info.json';
 
 const drawerWidth = 240;
+
+const icons = {
+  AccountCircleIcon: <AccountCircleIcon />,
+  PeopleIcon: <PeopleIcon />,
+  AssignmentIcon: <AssignmentIcon />,
+};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -101,9 +116,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard = ({ dashboard, history, session, changeSession }) => {
+const Dashboard = ({ dashboard, history, session, changeSession, changeComponent }) => {
   const classes = useStyles();
   const theme = useTheme();
+  const { mainListItems, adminListItems } = DashboardInfo;
   const [open, setOpen] = useState(false);
   const [showComponent, setShowComponent] = useState(true);
   // const [loading, setLoading] = useState(false);
@@ -171,11 +187,28 @@ const Dashboard = ({ dashboard, history, session, changeSession }) => {
             </IconButton>
           </div>
           <Divider />
-          <List>{mainListItems}</List>
+          <List>
+            {mainListItems.map((item) => (
+              <ListItem key={uuidv4()} button onClick={() => changeComponent(item.component)}>
+                <ListItemIcon>
+                  {icons[item.icon]}
+                </ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItem>
+            ))}
+          </List>
           <Divider />
-          <List>{secondaryListItems}</List>
-          <Divider />
-          <List>{adminListItems}</List>
+          <List>
+            <ListSubheader inset>Admin</ListSubheader>
+            {adminListItems.map((item) => (
+              <ListItem key={uuidv4()} button onClick={() => changeComponent(item.component)}>
+                <ListItemIcon>
+                  {icons[item.icon]}
+                </ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItem>
+            ))}
+          </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
@@ -196,6 +229,7 @@ Dashboard.propTypes = {
   session: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
   changeSession: PropTypes.func.isRequired,
+  changeComponent: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -205,6 +239,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeSession: (session) => dispatch(updateSession(session)),
+  changeComponent: (component) => dispatch(updateDashboard(component)),
 });
 
 const DashboardWrapper = connect(mapStateToProps, mapDispatchToProps)(Dashboard);
