@@ -53,7 +53,7 @@ const UserForm = ({ session }) => {
     try {
       setLoading(true);
       const privateKey = process.env.REACT_APP_PRIVATE_KEY_JWT;
-      const user = jwt.verify(session.user, privateKey);
+      const user = jwt.verify(session.user, privateKey); // decode session Redux
       const payload = { id: user.id, email };
       if (password !== '') {
         if (password.trim() !== confirmation.trim()) {
@@ -89,7 +89,6 @@ const UserForm = ({ session }) => {
         setMessage(err.message);
       }
     }
-    // eslint-disable-next-line
   }, []);
 
   return (

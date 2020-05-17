@@ -12,8 +12,11 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import LoadingGif from './LoadingGif';
-import { UserListInfo } from '../Info.json';
+import { UserListInfo, buttons } from '../Info.json';
 
 const useStyles = makeStyles({
   root: {
@@ -33,9 +36,11 @@ const columns = [
 
 const UserList = () => {
   const { title } = UserListInfo;
+  const { add, wait } = buttons;
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [username, setUsername] = useState('');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [users, setUsers] = useState([]);
@@ -64,19 +69,59 @@ const UserList = () => {
     }
   };
 
+  const handleCreate = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const privateKey = process.env.REACT_APP_PRIVATE_KEY_JWT;
+      const payload = { username };
+      const token = jwt.sign(payload, privateKey);
+      const res = await axios.post('/api/users_create', { token });
+      setUsers([...users, res.data]);
+    } catch (err) {
+      setMessage(err.response.statusText);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     getUsers();
   }, []);
 
   return (
     <Paper className={classes.root}>
-      <Typography variant="h4" align="center" color="primary">
+      <Typography variant="h4" align="center" color="primary" gutterBottom>
         {title}
       </Typography>
-      <Typography variant="subtitle2" align="center" color="error">
+      <Typography variant="subtitle2" align="center" color="error" gutterBottom>
         {message}
       </Typography>
       <LoadingGif visible={loading} />
+      <form onSubmit={handleCreate}>
+        <Grid container spacing={3} justify="center" alignItems="center" alignContent="center">
+          <Grid item>
+            <TextField
+              autoComplete="fname"
+              name="username"
+              variant="outlined"
+              id="username"
+              value={username}
+              label="nuevo usuario"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </Grid>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            disabled={loading}
+          >
+            {loading ? wait : add}
+          </Button>
+        </Grid>
+      </form>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>

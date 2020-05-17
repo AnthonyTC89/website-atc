@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2020_05_09_165145) do
     t.string "password_digest"
     t.string "token"
     t.string "auth_token"
-    t.integer "status"
+    t.integer "status", default: 3
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

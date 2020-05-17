@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :password_digest
       t.string :token
       t.string :auth_token
-      t.integer :status
+      t.integer :status, default: 3
 
       t.timestamps
     end

@@ -50,15 +50,16 @@ module Api
     end
 
     # POST /users
-    # def create
-    #   @user = User.new(user_params)
-
-    #   if @user.save
-    #     render json: @user, status: :created
-    #   else
-    #     render json: @user.errors, status: :unprocessable_entity
-    #   end
-    # end
+    def create_user
+      data = decode(params[:token])
+      username = data['username']
+      user = User.new(username: username, password: username, password_confirmation: username)
+      if user.save
+        render json: { id: user.id, username: user.username, email: user.email, status: user.status }, status: :created
+      else
+        render json: user.errors, status: :unprocessable_entity
+      end
+    end
 
     # PATCH/PUT /users/1
     # def update
