@@ -12,7 +12,7 @@ module Api
     # GET /users_list
     def list_token
       decode(params[:token])
-      @users = User.select(:id, :username, :email, :status)
+      @users = User.select(:id, :username, :email, :status).order(:id)
       render json: @users, status: :accepted
     end
 
@@ -89,6 +89,17 @@ module Api
       user = User.find(data['id'])
       user.password = user.username
       user.password_confirmation = user.username
+      if user.save
+        render status: :accepted
+      else
+        render status: :unprocessable_entity
+      end
+    end
+
+    def updown_token
+      data = decode(params[:token])
+      user = User.find(data['id'])
+      user.status += data['value'].to_i
       if user.save
         render status: :accepted
       else

@@ -30,6 +30,10 @@ const useStyles = makeStyles({
   container: {
     maxHeight: 440,
   },
+  cells: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
 });
 
 const columns = [
@@ -124,7 +128,19 @@ const UserList = () => {
   };
 
   const handleUpdate = async (user, value) => {
-    console.log('user: ', user, ' value: ', value);
+    setLoading(true);
+    setMessage(null);
+    try {
+      const privateKey = process.env.REACT_APP_PRIVATE_KEY_JWT;
+      const payload = { id: user.id, value };
+      const token = jwt.sign(payload, privateKey);
+      const res = await axios.put('/api/users_updown', { token });
+      setMessage(res.statusText);
+    } catch (err) {
+      setMessage(err.response.statusText);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -157,7 +173,6 @@ const UserList = () => {
             type="submit"
             variant="contained"
             color="primary"
-            className={classes.submit}
             disabled={loading}
           >
             {loading ? wait : add}
@@ -171,7 +186,7 @@ const UserList = () => {
               {columns.map((column) => (
                 <TableCell
                   key={uuidv4()}
-                  align={column.align}
+                  align="center"
                   style={{ minWidth: column.minWidth }}
                 >
                   {column.label}
@@ -193,7 +208,7 @@ const UserList = () => {
                     </TableCell>
                   );
                 })}
-                <TableCell align="center">
+                <TableCell className={classes.cells}>
                   <IconButton
                     style={{ color: 'green' }}
                     aria-label="upgrade"
