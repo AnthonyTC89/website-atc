@@ -10,7 +10,7 @@ module Api
     # end
 
     # GET /users_list
-    def list
+    def list_token
       decode(params[:token])
       @users = User.select(:id, :username, :email, :status)
       render json: @users, status: :accepted
@@ -22,7 +22,7 @@ module Api
     # end
 
     # POST /users/login
-    def login
+    def login_token
       data = decode(params[:token])
       username = data['username']
       password = data['password']
@@ -50,7 +50,7 @@ module Api
     end
 
     # POST /users
-    def create_user
+    def create_token
       data = decode(params[:token])
       username = data['username']
       user = User.new(username: username, password: username, password_confirmation: username)
@@ -71,7 +71,7 @@ module Api
     # end
 
     # PATCH/PUT /users_update
-    def update_by_token
+    def update_token
       data = decode(params[:token])
       @user = User.find(data['id'])
       @user.email = data['email']
@@ -83,11 +83,25 @@ module Api
       end
     end
 
+    # PATCH/PUT /users_restore
+    def restore_token
+      data = decode(params[:token])
+      user = User.find(data['id'])
+      user.password = user.username
+      user.password_confirmation = user.username
+      if user.save
+        render status: :accepted
+      else
+        render status: :unprocessable_entity
+      end
+    end
+
     # DELETE /users/1
     # def destroy
     #   @user.destroy
     # end
 
+    # DELETE /users_destroy
     def destroy_token
       data = decode(params[:token])
       user = User.find(data['id'])

@@ -108,7 +108,19 @@ const UserList = () => {
   };
 
   const handleRestore = async (user) => {
-    console.log('user: ', user);
+    setLoading(true);
+    setMessage(null);
+    try {
+      const privateKey = process.env.REACT_APP_PRIVATE_KEY_JWT;
+      const payload = { id: user.id };
+      const token = jwt.sign(payload, privateKey);
+      const res = await axios.put('/api/users_restore', { token });
+      setMessage(res.statusText);
+    } catch (err) {
+      setMessage(err.response.statusText);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleUpdate = async (user, value) => {
