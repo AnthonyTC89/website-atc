@@ -91,7 +91,20 @@ const UserList = () => {
   };
 
   const handleDelete = async (user) => {
-    console.log('user: ', user);
+    setLoading(true);
+    setMessage(null);
+    try {
+      const privateKey = process.env.REACT_APP_PRIVATE_KEY_JWT;
+      const payload = { id: user.id };
+      const token = jwt.sign(payload, privateKey);
+      const res = await axios.delete('/api/users_delete', { params: { token } });
+      setUsers(users.filter((item) => item.id !== user.id));
+      setMessage(res.statusText);
+    } catch (err) {
+      setMessage(err.response.statusText);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleRestore = async (user) => {
