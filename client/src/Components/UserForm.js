@@ -89,6 +89,7 @@ const UserForm = ({ session }) => {
         setMessage(err.message);
       }
     }
+    // eslint-disable-next-line
   }, []);
 
   return (

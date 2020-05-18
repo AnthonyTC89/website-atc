@@ -14,6 +14,11 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
+import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
+import RestoreIcon from '@material-ui/icons/Restore';
 import TextField from '@material-ui/core/TextField';
 import LoadingGif from './LoadingGif';
 import { UserListInfo, buttons } from '../Info.json';
@@ -28,10 +33,10 @@ const useStyles = makeStyles({
 });
 
 const columns = [
-  { id: 'id', label: 'id', minWidth: 50 },
-  { id: 'username', label: 'username', minWidth: 150 },
-  { id: 'email', label: 'email', minWidth: 200 },
-  { id: 'status', label: 'status', minWidth: 50 },
+  { id: 'id', label: 'id', minWidth: 50, align: 'center' },
+  { id: 'username', label: 'username', minWidth: 150, align: 'center' },
+  { id: 'email', label: 'email', minWidth: 200, align: 'center' },
+  { id: 'status', label: 'status', minWidth: 50, align: 'center' },
 ];
 
 const UserList = () => {
@@ -85,6 +90,18 @@ const UserList = () => {
     }
   };
 
+  const handleDelete = async (user) => {
+    console.log('user: ', user);
+  };
+
+  const handleRestore = async (user) => {
+    console.log('user: ', user);
+  };
+
+  const handleUpdate = async (user, value) => {
+    console.log('user: ', user, ' value: ', value);
+  };
+
   useEffect(() => {
     getUsers();
   }, []);
@@ -135,19 +152,56 @@ const UserList = () => {
                   {column.label}
                 </TableCell>
               ))}
+              <TableCell align="center" style={{ minWidth: 100 }}>
+                actions
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={uuidv4()}>
+            {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => (
+              <TableRow hover tabIndex={-1} key={uuidv4()}>
                 {columns.map((column) => {
-                  const value = row[column.id];
+                  const value = user[column.id];
                   return (
-                    <TableCell key={column.id} align={column.align}>
+                    <TableCell key={column.id} align="center">
                       {column.format && typeof value === 'number' ? column.format(value) : value}
                     </TableCell>
                   );
                 })}
+                <TableCell align="center">
+                  <IconButton
+                    style={{ color: 'green' }}
+                    aria-label="upgrade"
+                    disabled={loading}
+                    onClick={() => handleUpdate(user, -1)}
+                  >
+                    <ArrowUpwardIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    style={{ color: 'darkorange' }}
+                    aria-label="downgrade"
+                    disabled={loading}
+                    onClick={() => handleUpdate(user, 1)}
+                  >
+                    <ArrowDownwardIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    style={{ color: 'black' }}
+                    aria-label="restore"
+                    disabled={loading}
+                    onClick={() => handleRestore(user)}
+                  >
+                    <RestoreIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    aria-label="delete"
+                    color="secondary"
+                    disabled={loading}
+                    onClick={() => handleDelete(user)}
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
