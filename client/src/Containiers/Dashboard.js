@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
+import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
@@ -26,7 +26,6 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import PeopleIcon from '@material-ui/icons/People';
 import updateSession from '../redux/actions/updateSession';
 import updateDashboard from '../redux/actions/updateDashboard';
-// import LoadingGif from '../Components/LoadingGif';
 import { DashboardInfo } from '../Info.json';
 
 const drawerWidth = 240;
@@ -122,8 +121,16 @@ const Dashboard = ({ dashboard, history, session, changeSession, changeComponent
   const { mainListItems, adminListItems } = DashboardInfo;
   const [open, setOpen] = useState(false);
   const [showComponent, setShowComponent] = useState(true);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(null);
+
+  const isAdmin = () => {
+    try {
+      const privateKey = process.env.REACT_APP_PRIVATE_KEY_JWT;
+      const user = jwt.verify(session.user, privateKey);
+      return user.status === 1;
+    } catch (err) {
+      return false;
+    }
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -198,23 +205,24 @@ const Dashboard = ({ dashboard, history, session, changeSession, changeComponent
             ))}
           </List>
           <Divider />
-          <List>
-            <ListSubheader inset>Admin</ListSubheader>
-            {adminListItems.map((item) => (
-              <ListItem key={uuidv4()} button onClick={() => changeComponent(item.component)}>
-                <ListItemIcon>
-                  {icons[item.icon]}
-                </ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItem>
-            ))}
-          </List>
+          {isAdmin() ? (
+            <List>
+              <ListSubheader inset>Admin</ListSubheader>
+              {adminListItems.map((item) => (
+                <ListItem key={uuidv4()} button onClick={() => changeComponent(item.component)}>
+                  <ListItemIcon>
+                    {icons[item.icon]}
+                  </ListItemIcon>
+                  <ListItemText primary={item.name} />
+                </ListItem>
+              ))}
+            </List>
+          ) : null }
         </Drawer>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
           {showComponent ? (
             <Container maxWidth="lg" className={classes.container}>
-              {/* <LoadingGif visible={loading} /> */}
               <Component />
             </Container>
           ) : null }
