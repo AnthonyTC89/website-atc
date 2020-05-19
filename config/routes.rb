@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   namespace :api do
     get "/users_list", to: "users#list_token"
     post "/users/login", to: "users#login_token"
@@ -7,5 +8,7 @@ Rails.application.routes.draw do
     put "/users_restore", to: "users#restore_token"
     put "/users_updown", to: "users#updown_token"
     delete "/users_delete", to: "users#destroy_token"
+
+    resources :images, only: [:index, :create, :destroy]
   end
 end
