@@ -11,6 +11,9 @@
   "ImagesListInfo": {
     "title": "Imágenes"
   },
+  "BannerInfo": {
+    "title": "Banner"
+  },
   "DashboardInfo": {
     "mainListItems": [
       { 

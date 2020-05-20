@@ -1,12 +1,12 @@
 import { createStore, combineReducers } from 'redux';
 import session from './reducers/session';
 import dashboard from './reducers/dashboard';
-import data from './reducers/data';
+import images from './reducers/images';
 
 const reducer = combineReducers({
   session,
   dashboard,
-  data,
+  images,
 });
 
 const store = createStore(reducer);

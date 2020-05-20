@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import jwt from 'jsonwebtoken';
-import { v4 as uuidv4 } from 'uuid';
+import axios from 'axios';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
@@ -31,6 +32,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import updateSession from '../redux/actions/updateSession';
 import updateDashboard from '../redux/actions/updateDashboard';
+import updateImages from '../redux/actions/updateImages';
 import { DashboardInfo } from '../Info.json';
 
 const drawerWidth = 240;
@@ -125,12 +127,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard = ({ dashboard, history, session, changeSession, changeComponent }) => {
+const Dashboard = ({ dashboard, history, session, changeSession,
+  changeComponent, changeImages }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { mainListItems, homeListItems, adminListItems } = DashboardInfo;
+  const [message, setMessage] = useState(null);
   const [open, setOpen] = useState(false);
   const [showComponent, setShowComponent] = useState(true);
+  const { mainListItems, homeListItems, adminListItems } = DashboardInfo;
+  const { Component } = dashboard;
 
   const isAdmin = () => {
     try {
@@ -154,15 +159,26 @@ const Dashboard = ({ dashboard, history, session, changeSession, changeComponent
 
   const handleLogout = async () => {
     changeSession(null);
+    history.push('/');
+  };
+
+  const getImages = async () => {
+    try {
+      const res = await axios.get('/api/images');
+      changeImages(res.data);
+    } catch (err) {
+      setMessage(err.response.statusText);
+    }
   };
 
   useEffect(() => {
     if (!session.isLoggedIn) {
       history.push('/');
     }
-  });
+    getImages();
+    // eslint-disable-next-line
+  }, []);
 
-  const { Component } = dashboard;
   return (
     <>
       <div className={classes.root}>
@@ -244,6 +260,11 @@ const Dashboard = ({ dashboard, history, session, changeSession, changeComponent
           <div className={classes.appBarSpacer} />
           {showComponent ? (
             <Container maxWidth="lg" className={classes.container}>
+              {message == null ? null : (
+                <Typography variant="subtitle2" align="center" color="error" gutterBottom>
+                  {message}
+                </Typography>
+              )}
               <Component />
             </Container>
           ) : null }
@@ -259,6 +280,7 @@ Dashboard.propTypes = {
   history: PropTypes.object.isRequired,
   changeSession: PropTypes.func.isRequired,
   changeComponent: PropTypes.func.isRequired,
+  changeImages: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -269,6 +291,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   changeSession: (session) => dispatch(updateSession(session)),
   changeComponent: (component) => dispatch(updateDashboard(component)),
+  changeImages: (data) => dispatch(updateImages(data)),
 });
 
 const DashboardWrapper = connect(mapStateToProps, mapDispatchToProps)(Dashboard);

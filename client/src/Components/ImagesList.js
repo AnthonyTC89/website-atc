@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import { uploadFile, deleteFile } from 'react-s3';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,6 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import updateImages from '../redux/actions/updateImages';
 import LoadingGif from './LoadingGif';
 import { ImagesListInfo, buttons } from '../Info.json';
 
@@ -51,7 +54,7 @@ const columns = [
   { id: 'actions', label: 'actions', minWidth: 50, align: 'center' },
 ];
 
-const ImagesList = () => {
+const ImagesList = ({ images, changeImages }) => {
   const { title } = ImagesListInfo;
   const { upload, wait, select } = buttons;
   const classes = useStyles();
@@ -60,7 +63,6 @@ const ImagesList = () => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
-  const [images, setImages] = useState([]);
   const configS3 = {
     bucketName: process.env.REACT_APP_S3_BUCKET,
     region: process.env.REACT_APP_S3_BUCKET_REGION,
@@ -77,19 +79,6 @@ const ImagesList = () => {
     setPage(0);
   };
 
-  const getImages = async () => {
-    setLoading(true);
-    setMessage(null);
-    try {
-      const res = await axios.get('/api/images');
-      setImages(res.data);
-    } catch (err) {
-      setMessage(err.response.statusText);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleCreate = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -99,7 +88,7 @@ const ImagesList = () => {
       const { bucket, key, location } = data;
       const res = await axios.post('/api/images', { bucket, key, location });
       const newRecipe = { id: res.data.id, key, location };
-      setImages([...images, newRecipe]);
+      changeImages([...images, newRecipe]);
     } catch (err) {
       if (err.statusText) {
         setMessage(err.statusText);
@@ -117,7 +106,7 @@ const ImagesList = () => {
     try {
       await axios.delete(`api/images/${image.id}`);
       await deleteFile(image.key, configS3);
-      setImages(images.filter((img) => img.id !== image.id));
+      changeImages(images.filter((img) => img.id !== image.id));
     } catch (err) {
       if (err.statusText) {
         setMessage(err.statusText);
@@ -128,10 +117,6 @@ const ImagesList = () => {
       setLoading(false);
     }
   };
-
-  useEffect(() => {
-    getImages();
-  }, []);
 
   return (
     <Paper className={classes.root}>
@@ -234,4 +219,23 @@ const ImagesList = () => {
   );
 };
 
-export default ImagesList;
+ImagesList.propTypes = {
+  images: PropTypes.array,
+  changeImages: PropTypes.func.isRequired,
+};
+
+ImagesList.defaultProps = {
+  images: [],
+};
+
+const mapStateToProps = (state) => ({
+  images: state.images,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeImages: (data) => dispatch(updateImages(data)),
+});
+
+const ImagesListWrapper = connect(mapStateToProps, mapDispatchToProps)(ImagesList);
+
+export default ImagesListWrapper;
