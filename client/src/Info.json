@@ -8,19 +8,49 @@
   "UserListInfo": {
     "title": "Usuarios"
   },
+  "ImagesListInfo": {
+    "title": "Imágenes"
+  },
   "DashboardInfo": {
     "mainListItems": [
       { 
         "name": "Usuario",
         "component": "UserForm",
         "icon": "AccountCircleIcon"
+      },
+      { 
+        "name": "Imagenes",
+        "component": "ImagesList",
+        "icon": "PhotoLibraryIcon"
+      }
+    ],
+    "homeListItems": [
+      { 
+        "name": "Banner",
+        "component": "UserForm",
+        "icon": "PanoramaIcon"
+      },
+      { 
+        "name": "Acerca de",
+        "component": "UserForm",
+        "icon": "InfoIcon"
+      },
+      { 
+        "name": "Contacto",
+        "component": "UserForm",
+        "icon": "ContactPhoneIcon"
+      },
+      { 
+        "name": "Redes Sociales",
+        "component": "UserForm",
+        "icon": "PeopleIcon"
       }
     ],
     "adminListItems": [
       { 
         "name": "Usuarios",
         "component": "UserList",
-        "icon": "PeopleIcon"
+        "icon": "GroupAddIcon"
       }
     ]
   },
@@ -42,6 +72,7 @@
     "subjects": "Temas",
     "schedule": "Horario",
     "upload": "Guardar",
-    "download": "Descargar"
+    "download": "Descargar",
+    "select": "Seleccione"
   }
 }

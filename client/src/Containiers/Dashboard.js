@@ -24,6 +24,11 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import PeopleIcon from '@material-ui/icons/People';
+import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import PanoramaIcon from '@material-ui/icons/Panorama';
+import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
+import InfoIcon from '@material-ui/icons/Info';
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import updateSession from '../redux/actions/updateSession';
 import updateDashboard from '../redux/actions/updateDashboard';
 import { DashboardInfo } from '../Info.json';
@@ -32,8 +37,13 @@ const drawerWidth = 240;
 
 const icons = {
   AccountCircleIcon: <AccountCircleIcon />,
-  PeopleIcon: <PeopleIcon />,
   AssignmentIcon: <AssignmentIcon />,
+  PeopleIcon: <PeopleIcon />,
+  PhotoLibraryIcon: <PhotoLibraryIcon />,
+  PanoramaIcon: <PanoramaIcon />,
+  ContactPhoneIcon: <ContactPhoneIcon />,
+  InfoIcon: <InfoIcon />,
+  GroupAddIcon: <GroupAddIcon />,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -118,7 +128,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = ({ dashboard, history, session, changeSession, changeComponent }) => {
   const classes = useStyles();
   const theme = useTheme();
-  const { mainListItems, adminListItems } = DashboardInfo;
+  const { mainListItems, homeListItems, adminListItems } = DashboardInfo;
   const [open, setOpen] = useState(false);
   const [showComponent, setShowComponent] = useState(true);
 
@@ -196,6 +206,17 @@ const Dashboard = ({ dashboard, history, session, changeSession, changeComponent
           <Divider />
           <List>
             {mainListItems.map((item) => (
+              <ListItem key={uuidv4()} button onClick={() => changeComponent(item.component)}>
+                <ListItemIcon>
+                  {icons[item.icon]}
+                </ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {homeListItems.map((item) => (
               <ListItem key={uuidv4()} button onClick={() => changeComponent(item.component)}>
                 <ListItemIcon>
                   {icons[item.icon]}
