@@ -11,7 +11,7 @@
   "ImagesListInfo": {
     "title": "Imágenes"
   },
-  "BannerInfo": {
+  "BannerFormInfo": {
     "title": "Banner"
   },
   "DashboardInfo": {
@@ -30,7 +30,7 @@
     "homeListItems": [
       { 
         "name": "Banner",
-        "component": "UserForm",
+        "component": "BannerForm",
         "icon": "PanoramaIcon"
       },
       { 

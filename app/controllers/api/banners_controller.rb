@@ -12,9 +12,9 @@ module Api
     def index_full
       query = 'SELECT b.id, b.title, b.subtitle, b.body, b.caption, b.image_id, i.location, i.key'
       query << ' FROM banners as b'
-      query << ' INNER JOIN images as i ON b.recipe_id = i.id'
-      @banners = Banner.connection.select_all(@query).to_a
-      render json: @banners
+      query << ' INNER JOIN images as i ON b.image_id = i.id'
+      banners = Banner.connection.select_all(query).to_a
+      render json: banners
     end
 
     # GET /banners/1

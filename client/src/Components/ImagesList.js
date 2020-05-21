@@ -28,6 +28,7 @@ const useStyles = makeStyles({
   },
   picture: {
     width: '100%',
+    textAlign: 'center',
   },
   img: {
     maxWidth: '5rem',
