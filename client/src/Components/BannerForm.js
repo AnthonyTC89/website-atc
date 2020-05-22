@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import { connect } from 'react-redux';
-// import PropTypes from 'prop-types';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -9,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import ModalImages from './ModalImages';
 import LoadingGif from './LoadingGif';
 import { BannerFormInfo, buttons } from '../Info.json';
 
@@ -35,21 +34,12 @@ const BannerForm = () => {
   const classes = useStyles();
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [open, setOpen] = React.useState(false);
   const [banner, setBanner] = useState({
     id: null, title: '', subtitle: '', body: '', caption: '', image_id: null, location: '', key: '',
   });
 
   const { update, wait, select } = buttons;
-
-  const handleGetImage = () => {
-    setBanner((prev) => (
-      { ...prev,
-        image_id: 3,
-        location: 'https://restaurant-atc.s3.amazonaws.com/tipakay.jpg',
-        key: 'tipakay.jpg',
-      }
-    ));
-  };
 
   const handleChange = (e) => {
     e.persist();
@@ -94,6 +84,23 @@ const BannerForm = () => {
     }
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (image) => {
+    setOpen(false);
+    if (image.id) {
+      setBanner((prev) => (
+        { ...prev,
+          image_id: image.id,
+          location: image.location,
+          key: image.key,
+        }
+      ));
+    }
+  };
+
   useEffect(() => {
     getBanner();
     // eslint-disable-next-line
@@ -129,7 +136,6 @@ const BannerForm = () => {
               value={banner.title}
               label="titulo"
               onChange={handleChange}
-              // onChange={(e) => setBanner(e.target.value)}
             />
             <TextField
               margin="dense"
@@ -165,7 +171,7 @@ const BannerForm = () => {
               variant="contained"
               color="primary"
               disabled={loading}
-              onClick={handleGetImage}
+              onClick={handleOpen}
             >
               {loading ? wait : select}
             </Button>
@@ -174,6 +180,7 @@ const BannerForm = () => {
                 <img className={classes.img} src={banner.location} alt={banner.key} />
               </picture>
             )}
+            <ModalImages open={open} handleClose={handleClose} />
           </Grid>
         </Grid>
       </form>
