@@ -12,5 +12,8 @@ Rails.application.routes.draw do
 
     resources :banners, only: [:create, :update]
     get "/banners_full", to: "banners#index_full"
+
+    resources :abouts, only: [:create, :update]
+    get "/abouts_full", to: "abouts#index_full"
   end
 end
