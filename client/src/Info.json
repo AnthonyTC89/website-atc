@@ -14,6 +14,9 @@
   "BannerFormInfo": {
     "title": "Banner"
   },
+  "AboutFormInfo": {
+    "title": "Acerca de"
+  },
   "DashboardInfo": {
     "mainListItems": [
       { 
@@ -35,7 +38,7 @@
       },
       { 
         "name": "Acerca de",
-        "component": "UserForm",
+        "component": "AboutForm",
         "icon": "InfoIcon"
       },
       { 

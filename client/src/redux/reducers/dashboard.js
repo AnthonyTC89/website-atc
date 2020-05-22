@@ -2,9 +2,10 @@ import UserForm from '../../Components/UserForm';
 import UserList from '../../Components/UserList';
 import ImagesList from '../../Components/ImagesList';
 import BannerForm from '../../Components/BannerForm';
+import AboutForm from '../../Components/AboutForm';
 
 const defaultDashboard = {
-  Component: BannerForm,
+  Component: AboutForm,
 };
 
 const collection = {
@@ -12,6 +13,7 @@ const collection = {
   UserList,
   ImagesList,
   BannerForm,
+  AboutForm,
 };
 
 const dashboard = (state = defaultDashboard, { type, component }) => {

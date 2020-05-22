@@ -15,7 +15,7 @@ module Api
 
     # GET /abouts_full
     def index_full
-      query = 'SELECT t.id, t.text, b.image_id, i.location, i.key'
+      query = 'SELECT t.id, t.title, t.text, t.image_id, i.location, i.key'
       query << ' FROM abouts as t'
       query << ' INNER JOIN images as i ON t.image_id = i.id'
       @abouts = About.connection.select_all(query).to_a
@@ -55,7 +55,7 @@ module Api
 
       # Only allow a trusted parameter "white list" through.
       def about_params
-        params.require(:about).permit(:text, :status, :image_id)
+        params.require(:about).permit(:title, :text, :status, :image_id)
       end
   end
 end
