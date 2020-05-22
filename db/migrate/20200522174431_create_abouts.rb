@@ -3,7 +3,7 @@ class CreateAbouts < ActiveRecord::Migration[6.0]
     create_table :abouts do |t|
       t.string :title
       t.string :text
-      t.boolean :status
+      t.boolean :status, default: true
       t.references :image, null: false, foreign_key: true
 
       t.timestamps

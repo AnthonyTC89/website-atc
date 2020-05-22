@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_22_174431) do
+ActiveRecord::Schema.define(version: 2020_05_22_221446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2020_05_22_174431) do
   create_table "abouts", force: :cascade do |t|
     t.string "title"
     t.string "text"
-    t.boolean "status"
+    t.boolean "status", default: true
     t.bigint "image_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -35,6 +35,21 @@ ActiveRecord::Schema.define(version: 2020_05_22_174431) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["image_id"], name: "index_banners_on_image_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "title"
+    t.string "email"
+    t.string "mobile"
+    t.string "address"
+    t.integer "zoom"
+    t.decimal "lat"
+    t.decimal "lng"
+    t.boolean "status", default: true
+    t.bigint "image_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["image_id"], name: "index_contacts_on_image_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -59,4 +74,5 @@ ActiveRecord::Schema.define(version: 2020_05_22_174431) do
 
   add_foreign_key "abouts", "images"
   add_foreign_key "banners", "images"
+  add_foreign_key "contacts", "images"
 end

@@ -15,5 +15,8 @@ Rails.application.routes.draw do
 
     resources :abouts, only: [:create, :update]
     get "/abouts_full", to: "abouts#index_full"
+
+    resources :contacts, only: [:create, :update]
+    get "/contacts_full", to: "contacts#index_full"
   end
 end
