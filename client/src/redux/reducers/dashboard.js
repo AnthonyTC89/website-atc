@@ -4,6 +4,7 @@ import ImagesList from '../../Components/ImagesList';
 import BannerForm from '../../Components/BannerForm';
 import AboutForm from '../../Components/AboutForm';
 import ContactForm from '../../Components/ContactForm';
+import SocialNetworksList from '../../Components/SocialNetworksList';
 
 const defaultDashboard = {
   Component: AboutForm,
@@ -16,6 +17,7 @@ const collection = {
   BannerForm,
   AboutForm,
   ContactForm,
+  SocialNetworksList,
 };
 
 const dashboard = (state = defaultDashboard, { type, component }) => {

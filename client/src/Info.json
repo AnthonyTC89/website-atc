@@ -20,6 +20,9 @@
   "ContactFormInfo": {
     "title": "Contacto"
   },
+  "SocialNetworksListInfo": {
+    "title": "Redes Sociales"
+  },
   "DashboardInfo": {
     "mainListItems": [
       { 
@@ -51,7 +54,7 @@
       },
       { 
         "name": "Redes Sociales",
-        "component": "UserForm",
+        "component": "SocialNetworksList",
         "icon": "PeopleIcon"
       }
     ],
