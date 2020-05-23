@@ -8,12 +8,12 @@ module Api
     #   render json: @contacts
     # end
 
-    # GET /contacts/full
-    def full_index
+    # GET /contacts_full
+    def index_full
       query = 'SELECT c.id, c.title, c.email, c.mobile, c.address, c.zoom, c.lat, c.lng, c.image_id, i.location, i.key'
       query << ' FROM Contacts as c' 
       query << ' INNER JOIN images as i ON c.image_id = i.id'
-      @contacts = Contact.connection.select_all(@query).to_a
+      @contacts = Contact.connection.select_all(query).to_a
       render json: @contacts
     end
 

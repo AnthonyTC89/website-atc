@@ -17,6 +17,9 @@
   "AboutFormInfo": {
     "title": "Acerca de"
   },
+  "ContactFormInfo": {
+    "title": "Contacto"
+  },
   "DashboardInfo": {
     "mainListItems": [
       { 
@@ -43,7 +46,7 @@
       },
       { 
         "name": "Contacto",
-        "component": "UserForm",
+        "component": "ContactForm",
         "icon": "ContactPhoneIcon"
       },
       { 
