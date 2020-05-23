@@ -18,5 +18,7 @@ Rails.application.routes.draw do
 
     resources :contacts, only: [:create, :update]
     get "/contacts_full", to: "contacts#index_full"
+
+    resources :social_networks, only: [:index, :create, :update, :destroy]
   end
 end
