@@ -12,16 +12,17 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-// import Grid from '@material-ui/core/Grid';
-// import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import LoadingGif from './LoadingGif';
+import SocialNetworksForm from './SocialNetworksForm';
 import { SocialNetworksListInfo } from '../Info.json';
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
+    textAlign: 'center',
   },
   picture: {
     width: '100%',
@@ -45,8 +46,8 @@ const useStyles = makeStyles({
 const columns = [
   { id: 'id', label: 'id', minWidth: 50, align: 'center' },
   { id: 'name', label: 'name', minWidth: 100, align: 'center' },
-  { id: 'href', label: 'url', minWidth: 200, align: 'center' },
   { id: 'src', label: 'icon', minWidth: 100, align: 'center' },
+  { id: 'href', label: 'url', minWidth: 200, align: 'center' },
   { id: 'status', label: 'status', minWidth: 100, align: 'center' },
   { id: 'actions', label: 'actions', minWidth: 50, align: 'center' },
 ];
@@ -60,6 +61,22 @@ const SocialNetworkList = () => {
   const [socialNetworks, setSocialNetworks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
+  const [showForm, setShowForm] = useState(false);
+
+  const openForm = () => {
+    setShowForm(true);
+  };
+
+  const closeForm = (socialNetwork) => {
+    setShowForm(false);
+    if (socialNetwork.id) {
+      if (socialNetworks.some((sn) => sn.id === socialNetwork.id)) {
+        console.log('existe');
+      } else {
+        setSocialNetworks([...socialNetworks, socialNetwork]);
+      }
+    }
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -75,7 +92,11 @@ const SocialNetworkList = () => {
     setMessage(null);
     try {
       const res = await axios.get('/api/social_networks');
-      setSocialNetworks(res.data);
+      if (res.data.length === 0) {
+        setShowForm(true);
+      } else {
+        setSocialNetworks(res.data);
+      }
     } catch (err) {
       setMessage(err.response.statusText);
     } finally {
@@ -105,6 +126,9 @@ const SocialNetworkList = () => {
     // eslint-disable-next-line
   }, []);
 
+  if (showForm) {
+    return <SocialNetworksForm closeForm={closeForm} />;
+  }
   return (
     <Paper className={classes.root}>
       <Typography variant="h4" align="center" color="primary" gutterBottom>
@@ -114,6 +138,15 @@ const SocialNetworkList = () => {
         {message}
       </Typography>
       <LoadingGif visible={loading} />
+      <IconButton
+        align="center"
+        aria-label="delete"
+        color="primary"
+        disabled={loading}
+        onClick={openForm}
+      >
+        <AddCircleIcon />
+      </IconButton>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -145,6 +178,9 @@ const SocialNetworkList = () => {
                 </TableCell>
                 <TableCell align="center">
                   {item.href}
+                </TableCell>
+                <TableCell align="center">
+                  {item.status ? 'activo' : 'inactivo' }
                 </TableCell>
                 <TableCell align="center">
                   <IconButton

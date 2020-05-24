@@ -7,7 +7,7 @@ import ContactForm from '../../Components/ContactForm';
 import SocialNetworksList from '../../Components/SocialNetworksList';
 
 const defaultDashboard = {
-  Component: AboutForm,
+  Component: SocialNetworksList,
 };
 
 const collection = {
