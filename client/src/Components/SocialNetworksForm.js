@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -29,15 +30,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SocialNetworksForm = ({ closeForm }) => {
+const SocialNetworksForm = ({ closeForm, editItem }) => {
   const classes = useStyles();
-  const [socialNetwork, setSocialNetwork] = useState({
-    id: null, name: '', href: '', src: '',
-  });
+  const [socialNetwork, setSocialNetwork] = useState(editItem);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const { title } = SocialNetworksFormInfo;
-  const { add, wait } = buttons;
+  const { add, update, wait } = buttons;
+  const btnText = socialNetwork.id == null ? add : update;
 
   const handleChange = (e) => {
     e.persist();
@@ -83,63 +83,58 @@ const SocialNetworksForm = ({ closeForm }) => {
             <ArrowBackIcon />
           </Avatar>
         </IconButton>
-        <Grid container spacing={3}>
-          <Grid item xs={12} className={classes.column}>
-            <TextField
-              margin="dense"
-              name="name"
-              variant="outlined"
-              id="name"
-              value={socialNetwork.name}
-              label="name"
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="href"
-              variant="outlined"
-              id="href"
-              value={socialNetwork.href}
-              label="enlace (url)"
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
-              name="src"
-              variant="outlined"
-              id="src"
-              value={socialNetwork.src}
-              label="icono (url)"
-              onChange={handleChange}
-            />
-            <Button
-              className={classes.button}
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={loading}
-            >
-              {loading ? wait : add}
-            </Button>
+        <Container maxWidth="xs">
+          <Grid container spacing={3}>
+            <Grid item xs={12} className={classes.column}>
+              <TextField
+                margin="dense"
+                name="name"
+                variant="outlined"
+                id="name"
+                value={socialNetwork.name}
+                label="name"
+                onChange={handleChange}
+              />
+              <TextField
+                margin="dense"
+                fullWidth
+                name="href"
+                variant="outlined"
+                id="href"
+                value={socialNetwork.href}
+                label="enlace (url)"
+                onChange={handleChange}
+              />
+              <TextField
+                margin="dense"
+                fullWidth
+                name="src"
+                variant="outlined"
+                id="src"
+                value={socialNetwork.src}
+                label="icono (url)"
+                onChange={handleChange}
+              />
+              <Button
+                className={classes.button}
+                type="submit"
+                variant="contained"
+                color="primary"
+                disabled={loading}
+              >
+                {loading ? wait : btnText}
+              </Button>
+            </Grid>
           </Grid>
-        </Grid>
+        </Container>
       </form>
     </Paper>
   );
 };
 
 SocialNetworksForm.propTypes = {
-  // socialNetwork: PropTypes.object,
+  editItem: PropTypes.object.isRequired,
   closeForm: PropTypes.func.isRequired,
-};
-
-SocialNetworksForm.defaultProps = {
-  // socialNetwork: {
-  //   id: null,
-  //   name: '',
-  //   href: '',
-  //   src: '',
-  // },
 };
 
 export default SocialNetworksForm;

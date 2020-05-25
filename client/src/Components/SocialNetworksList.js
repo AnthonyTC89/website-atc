@@ -12,9 +12,12 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import Link from '@material-ui/core/Link';
+import Switch from '@material-ui/core/Switch';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 import LoadingGif from './LoadingGif';
 import SocialNetworksForm from './SocialNetworksForm';
 import { SocialNetworksListInfo } from '../Info.json';
@@ -54,24 +57,27 @@ const columns = [
 
 const SocialNetworkList = () => {
   const { title } = SocialNetworksListInfo;
-  // const { upload, wait, select } = buttons;
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [socialNetworks, setSocialNetworks] = useState([]);
+  const [editItem, setEditItem] = useState();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
   const openForm = () => {
+    setEditItem({ id: null, name: '', href: '', src: '' });
     setShowForm(true);
   };
 
   const closeForm = (socialNetwork) => {
+    setMessage(null);
     setShowForm(false);
     if (socialNetwork.id) {
       if (socialNetworks.some((sn) => sn.id === socialNetwork.id)) {
-        console.log('existe');
+        const auxSocialNetworks = socialNetworks.filter((i) => i.id !== socialNetwork.id);
+        setSocialNetworks([socialNetwork, ...auxSocialNetworks]);
       } else {
         setSocialNetworks([...socialNetworks, socialNetwork]);
       }
@@ -85,6 +91,25 @@ const SocialNetworkList = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const handleChangeStatus = async (item) => {
+    setLoading(true);
+    setMessage(null);
+    try {
+      const res = await axios.put(`api/social_networks/${item.id}`, { status: !item.status });
+      const { id, name, href, src, status } = res.data;
+      const newSocialNetwork = { id, name, href, src, status };
+      const auxSocialNetworks = socialNetworks.filter((i) => i.id !== item.id);
+      const fullSocialNetworks = [...auxSocialNetworks, newSocialNetwork];
+      const sortedSocialNetworks = fullSocialNetworks.sort((a, b) => (a.id > b.id ? 1 : -1));
+      setSocialNetworks(sortedSocialNetworks);
+      setMessage(res.statusText);
+    } catch (err) {
+      setMessage(err.response.statusText);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getSocialNetworks = async () => {
@@ -102,6 +127,11 @@ const SocialNetworkList = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleEdit = (item) => {
+    setEditItem(item);
+    setShowForm(true);
   };
 
   const handleDelete = async (socialNetwork) => {
@@ -127,7 +157,7 @@ const SocialNetworkList = () => {
   }, []);
 
   if (showForm) {
-    return <SocialNetworksForm closeForm={closeForm} />;
+    return <SocialNetworksForm closeForm={closeForm} editItem={editItem} />;
   }
   return (
     <Paper className={classes.root}>
@@ -177,12 +207,27 @@ const SocialNetworkList = () => {
                   </picture>
                 </TableCell>
                 <TableCell align="center">
-                  {item.href}
+                  <Link href={item.href} target="_blank" rel="noopener">
+                    {item.href}
+                  </Link>
                 </TableCell>
                 <TableCell align="center">
-                  {item.status ? 'activo' : 'inactivo' }
+                  <Switch
+                    checked={item.status}
+                    onChange={() => handleChangeStatus(item)}
+                    color="primary"
+                    name="status"
+                  />
                 </TableCell>
                 <TableCell align="center">
+                  <IconButton
+                    aria-label="edit"
+                    color="primary"
+                    disabled={loading}
+                    onClick={() => handleEdit(item)}
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
                   <IconButton
                     aria-label="delete"
                     color="secondary"
