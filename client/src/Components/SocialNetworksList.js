@@ -49,9 +49,9 @@ const useStyles = makeStyles({
 const columns = [
   { id: 'id', label: 'id', minWidth: 50, align: 'center' },
   { id: 'name', label: 'name', minWidth: 100, align: 'center' },
-  { id: 'src', label: 'icon', minWidth: 100, align: 'center' },
-  { id: 'href', label: 'url', minWidth: 200, align: 'center' },
-  { id: 'status', label: 'status', minWidth: 100, align: 'center' },
+  { id: 'src', label: 'icon', minWidth: 50, align: 'center' },
+  { id: 'href', label: 'url', minWidth: 150, align: 'center' },
+  { id: 'status', label: 'status', minWidth: 50, align: 'center' },
   { id: 'actions', label: 'actions', minWidth: 50, align: 'center' },
 ];
 
