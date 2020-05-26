@@ -6,9 +6,10 @@ import AboutForm from '../../Components/AboutForm';
 import ContactForm from '../../Components/ContactForm';
 import SocialNetworksList from '../../Components/SocialNetworksList';
 import ProductsList from '../../Components/ProductsList';
+import ServicesList from '../../Components/ServicesList';
 
 const defaultDashboard = {
-  Component: ProductsList,
+  Component: UserForm,
 };
 
 const collection = {
@@ -20,6 +21,7 @@ const collection = {
   ContactForm,
   SocialNetworksList,
   ProductsList,
+  ServicesList,
 };
 
 const dashboard = (state = defaultDashboard, { type, component }) => {

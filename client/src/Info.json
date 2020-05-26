@@ -29,8 +29,14 @@
   "ProductsListInfo": {
     "title": "Productos"
   },
-  "ProductFormInfo" : {
+  "ProductsFormInfo" : {
     "title": "Productos"
+  },
+  "ServicesListInfo": {
+    "title": "Servicios"
+  },
+  "ServicesFormInfo" : {
+    "title": "Servicios"
   },
   "DashboardInfo": {
     "mainListItems": [
@@ -53,7 +59,7 @@
       },
       {
         "name": "Services",
-        "component": "UserForm",
+        "component": "ServicesList",
         "icon": "WorkIcon"
       }
     ],

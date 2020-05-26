@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  
-  resources :services
   namespace :api do
     get "/users_list", to: "users#list_token"
     post "/users/login", to: "users#login_token"
@@ -25,5 +23,8 @@ Rails.application.routes.draw do
 
     resources :products, only: [:create, :update, :destroy]
     get "/products_full", to: "products#index_full"
+
+    resources :services
+    get "/services_full", to: "services#index_full"
   end
 end

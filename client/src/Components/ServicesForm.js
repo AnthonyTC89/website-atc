@@ -13,7 +13,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalImages from './ModalImages';
 import LoadingGif from './LoadingGif';
-import { ProductsFormInfo, buttons } from '../Info.json';
+import { ServicesFormInfo, buttons } from '../Info.json';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,20 +38,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ProductsForm = ({ editItem, closeForm }) => {
+const ServicesForm = ({ editItem, closeForm }) => {
   const classes = useStyles();
-  const { title } = ProductsFormInfo;
+  const { title } = ServicesFormInfo;
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
-  const [product, setProduct] = useState(editItem);
+  const [service, setService] = useState(editItem);
 
   const { add, update, wait, select } = buttons;
-  const btnText = product.id == null ? add : update;
+  const btnText = service.id == null ? add : update;
 
   const handleChange = (e) => {
     e.persist();
-    setProduct((prev) => (
+    setService((prev) => (
       { ...prev, [e.target.name]: e.target.value }
     ));
   };
@@ -61,11 +61,11 @@ const ProductsForm = ({ editItem, closeForm }) => {
     setLoading(true);
     setMessage(null);
     try {
-      const res = product.id == null
-        ? await axios.post('api/products/', product)
-        : await axios.put(`api/products/${product.id}`, product);
+      const res = service.id == null
+        ? await axios.post('api/services/', service)
+        : await axios.put(`api/services/${service.id}`, service);
       setLoading(false);
-      closeForm({ ...product, id: res.data.id });
+      closeForm({ ...service, id: res.data.id });
     } catch (err) {
       if (err.response) {
         setMessage(err.response.statusText);
@@ -82,7 +82,7 @@ const ProductsForm = ({ editItem, closeForm }) => {
   const handleClose = (image) => {
     setOpen(false);
     if (image.id) {
-      setProduct((prev) => (
+      setService((prev) => (
         { ...prev,
           image_id: image.id,
           location: image.location,
@@ -128,7 +128,7 @@ const ProductsForm = ({ editItem, closeForm }) => {
               name="title"
               variant="outlined"
               id="title"
-              value={product.title}
+              value={service.title}
               label="titulo"
               onChange={handleChange}
             />
@@ -139,7 +139,7 @@ const ProductsForm = ({ editItem, closeForm }) => {
               rows={6}
               variant="outlined"
               id="text"
-              value={product.text}
+              value={service.text}
               label="descripción"
               onChange={handleChange}
             />
@@ -154,9 +154,9 @@ const ProductsForm = ({ editItem, closeForm }) => {
             >
               {loading ? wait : select}
             </Button>
-            {product.image_id == null ? null : (
+            {service.image_id == null ? null : (
               <picture className={classes.picture}>
-                <img className={classes.img} src={product.location} alt={product.key} />
+                <img className={classes.img} src={service.location} alt={service.key} />
               </picture>
             )}
             <ModalImages open={open} handleClose={handleClose} />
@@ -167,9 +167,9 @@ const ProductsForm = ({ editItem, closeForm }) => {
   );
 };
 
-ProductsForm.propTypes = {
+ServicesForm.propTypes = {
   editItem: PropTypes.object.isRequired,
   closeForm: PropTypes.func.isRequired,
 };
 
-export default ProductsForm;
+export default ServicesForm;
