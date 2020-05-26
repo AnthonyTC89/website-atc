@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
@@ -30,7 +31,7 @@ const useStyles = makeStyles({
     textAlign: 'center',
   },
   img: {
-    maxWidth: '2rem',
+    maxWidth: '5rem',
   },
   button: {
     margin: '1rem',
@@ -53,7 +54,6 @@ const columns = [
 ];
 
 const ProductsList = () => {
-  const { title } = ProductsListInfo;
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -64,7 +64,8 @@ const ProductsList = () => {
   const [showForm, setShowForm] = useState(false);
 
   const openForm = () => {
-    setEditItem({ id: null, name: '', href: '', src: '' });
+    const newItem = { id: null, title: '', text: '', image_id: '', location: '', key: '', status: true };
+    setEditItem(newItem);
     setShowForm(true);
   };
 
@@ -95,12 +96,10 @@ const ProductsList = () => {
     setMessage(null);
     try {
       const res = await axios.put(`api/products/${item.id}`, { status: !item.status });
-      const { id, name, href, src, status } = res.data;
-      const newProduct = { id, name, href, src, status };
-      const auxProducts = products.filter((i) => i.id !== item.id);
-      const fullProducts = [...auxProducts, newProduct];
-      const sortedProducts = fullProducts.sort((a, b) => (a.id > b.id ? 1 : -1));
-      setProducts(sortedProducts);
+      const index = products.findIndex((p) => p.id === item.id);
+      const auxProducts = [...products];
+      auxProducts[index] = { ...auxProducts[index], status: !auxProducts[index].status };
+      setProducts(auxProducts);
       setMessage(res.statusText);
     } catch (err) {
       setMessage(err.response.statusText);
@@ -115,7 +114,7 @@ const ProductsList = () => {
     try {
       const res = await axios.get('/api/products_full');
       if (res.data.length === 0) {
-        // setShowForm(true);
+        openForm();
       } else {
         setProducts(res.data);
       }
@@ -159,7 +158,7 @@ const ProductsList = () => {
   return (
     <Paper className={classes.root}>
       <Typography variant="h4" align="center" color="primary" gutterBottom>
-        {title}
+        {ProductsListInfo.title}
       </Typography>
       <Typography variant="subtitle2" align="center" color="error" gutterBottom>
         {message}

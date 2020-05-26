@@ -8,7 +8,7 @@ import SocialNetworksList from '../../Components/SocialNetworksList';
 import ProductsList from '../../Components/ProductsList';
 
 const defaultDashboard = {
-  Component: SocialNetworksList,
+  Component: ProductsList,
 };
 
 const collection = {

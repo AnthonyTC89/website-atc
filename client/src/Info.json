@@ -29,6 +29,9 @@
   "ProductsListInfo": {
     "title": "Productos"
   },
+  "ProductFormInfo" : {
+    "title": "Productos"
+  },
   "DashboardInfo": {
     "mainListItems": [
       { 

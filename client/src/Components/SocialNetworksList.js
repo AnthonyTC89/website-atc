@@ -67,7 +67,8 @@ const SocialNetworkList = () => {
   const [showForm, setShowForm] = useState(false);
 
   const openForm = () => {
-    setEditItem({ id: null, name: '', href: '', src: '' });
+    const newSocialNetwork = { id: null, name: '', href: '', src: '' };
+    setEditItem(newSocialNetwork);
     setShowForm(true);
   };
 
@@ -98,12 +99,11 @@ const SocialNetworkList = () => {
     setMessage(null);
     try {
       const res = await axios.put(`api/social_networks/${item.id}`, { status: !item.status });
-      const { id, name, href, src, status } = res.data;
-      const newSocialNetwork = { id, name, href, src, status };
-      const auxSocialNetworks = socialNetworks.filter((i) => i.id !== item.id);
-      const fullSocialNetworks = [...auxSocialNetworks, newSocialNetwork];
-      const sortedSocialNetworks = fullSocialNetworks.sort((a, b) => (a.id > b.id ? 1 : -1));
-      setSocialNetworks(sortedSocialNetworks);
+      const index = socialNetworks.findIndex((p) => p.id === item.id);
+      const auxSocialNetworks = [...socialNetworks];
+      auxSocialNetworks[index] = { ...auxSocialNetworks[index],
+        status: !auxSocialNetworks[index].status };
+      setSocialNetworks(auxSocialNetworks);
       setMessage(res.statusText);
     } catch (err) {
       setMessage(err.response.statusText);
@@ -118,7 +118,7 @@ const SocialNetworkList = () => {
     try {
       const res = await axios.get('/api/social_networks');
       if (res.data.length === 0) {
-        setShowForm(true);
+        openForm();
       } else {
         setSocialNetworks(res.data);
       }
