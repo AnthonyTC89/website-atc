@@ -26,6 +26,9 @@
   "SocialNetworksFormInfo": {
     "title": "Redes Sociales"
   },
+  "ProductsListInfo": {
+    "title": "Productos"
+  },
   "DashboardInfo": {
     "mainListItems": [
       { 
@@ -37,6 +40,18 @@
         "name": "Imagenes",
         "component": "ImagesList",
         "icon": "PhotoLibraryIcon"
+      }
+    ],
+    "secondaryListItems": [
+      { 
+        "name": "Products",
+        "component": "ProductsList",
+        "icon": "StoreIcon"
+      },
+      {
+        "name": "Services",
+        "component": "UserForm",
+        "icon": "WorkIcon"
       }
     ],
     "homeListItems": [

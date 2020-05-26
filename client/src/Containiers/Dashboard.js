@@ -30,6 +30,8 @@ import PanoramaIcon from '@material-ui/icons/Panorama';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import InfoIcon from '@material-ui/icons/Info';
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import StoreIcon from '@material-ui/icons/Store';
+import WorkIcon from '@material-ui/icons/Work';
 import updateSession from '../redux/actions/updateSession';
 import updateDashboard from '../redux/actions/updateDashboard';
 import updateImages from '../redux/actions/updateImages';
@@ -46,6 +48,8 @@ const icons = {
   ContactPhoneIcon: <ContactPhoneIcon />,
   InfoIcon: <InfoIcon />,
   GroupAddIcon: <GroupAddIcon />,
+  StoreIcon: <StoreIcon />,
+  WorkIcon: <WorkIcon />,
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -134,7 +138,7 @@ const Dashboard = ({ dashboard, history, session, changeSession,
   const [message, setMessage] = useState(null);
   const [open, setOpen] = useState(false);
   const [showComponent, setShowComponent] = useState(true);
-  const { mainListItems, homeListItems, adminListItems } = DashboardInfo;
+  const { mainListItems, homeListItems, adminListItems, secondaryListItems } = DashboardInfo;
   const { Component } = dashboard;
 
   const isAdmin = () => {
@@ -233,6 +237,17 @@ const Dashboard = ({ dashboard, history, session, changeSession,
           <Divider />
           <List>
             {homeListItems.map((item) => (
+              <ListItem key={uuidv4()} button onClick={() => changeComponent(item.component)}>
+                <ListItemIcon>
+                  {icons[item.icon]}
+                </ListItemIcon>
+                <ListItemText primary={item.name} />
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {secondaryListItems.map((item) => (
               <ListItem key={uuidv4()} button onClick={() => changeComponent(item.component)}>
                 <ListItemIcon>
                   {icons[item.icon]}
