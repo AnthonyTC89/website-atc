@@ -3,10 +3,10 @@ module Api
     before_action :set_product, only: [:update, :destroy]
 
     # GET /products
-    def index
-      @products = Product.all
-      render json: @products
-    end
+    # def index
+    #   @products = Product.all
+    #   render json: @products
+    # end
 
     # GET /products_full
     def index_full

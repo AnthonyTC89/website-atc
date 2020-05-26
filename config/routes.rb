@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :services
   namespace :api do
     get "/users_list", to: "users#list_token"
     post "/users/login", to: "users#login_token"
