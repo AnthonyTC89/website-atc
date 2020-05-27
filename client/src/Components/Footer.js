@@ -6,13 +6,10 @@ import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  footer: {
     display: 'flex',
     flexDirection: 'column',
-  },
-  footer: {
     padding: theme.spacing(2, 2),
-    position: 'fixed',
     bottom: 0,
     width: '100%',
   },
@@ -22,22 +19,20 @@ const Footer = () => {
   const classes = useStyles();
   const year = new Date().getFullYear();
   return (
-    <div className={classes.root}>
+    <footer className={classes.footer}>
       <CssBaseline />
-      <footer className={classes.footer}>
-        <Container maxWidth="sm">
-          <Typography variant="body2" color="textSecondary" align="center">
-            {` ${year} © `}
-            <Link color="inherit" href="https://material-ui.com/">
-              AnthonyTC89
-            </Link>
-          </Typography>
-          <Typography variant="body2" color="textSecondary" align="center">
-            All Rights Reserved.
-          </Typography>
-        </Container>
-      </footer>
-    </div>
+      <Container maxWidth="sm">
+        <Typography variant="body2" color="textSecondary" align="center">
+          {` ${year} © `}
+          <Link color="inherit" href="https://material-ui.com/">
+            AnthonyTC89
+          </Link>
+        </Typography>
+        <Typography variant="body2" color="textSecondary" align="center">
+          All Rights Reserved.
+        </Typography>
+      </Container>
+    </footer>
   );
 };
 

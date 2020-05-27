@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import LoadingGif from './LoadingGif';
 import maintenance from '../Images/maintenance.jpg';
@@ -11,11 +12,44 @@ const useStyles = makeStyles({
   img: {
     width: '100%',
   },
+  text: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    textAlign: 'center',
+    color: 'white',
+  },
+  title: {
+    fontWeight: 'bold',
+    fontSize: '5em',
+  },
+  subtitle: {
+    fontWeight: 'bold',
+    fontSize: '3em',
+  },
+  body: {
+    fontWeight: 'bold',
+    fontSize: '2em',
+  },
+  caption: {
+    fontWeight: 'bold',
+    fontSize: '1em',
+  },
 });
+
+const emptyBanner = {
+  title: '',
+  subtitle: '',
+  body: '',
+  caption: '',
+  location: maintenance,
+  key: 'maintenance',
+};
 
 const Banner = () => {
   const classes = useStyles();
-  const [banner, setBanner] = useState(null);
+  const [banner, setBanner] = useState(emptyBanner);
   const [loading, setLoading] = useState(false);
 
   const getBanner = async () => {
@@ -25,10 +59,10 @@ const Banner = () => {
       if (res.data.length !== 0) {
         setBanner(res.data[0]);
       } else {
-        setBanner(null);
+        setBanner(emptyBanner);
       }
     } catch (err) {
-      setBanner(null);
+      setBanner(emptyBanner);
     } finally {
       setLoading(false);
     }
@@ -43,11 +77,31 @@ const Banner = () => {
     <section id="home">
       {loading ? <LoadingGif visible={loading} /> : (
         <picture className={classes.picture}>
-          {banner === null
-            ? <img className={classes.img} src={maintenance} alt="under-construction" />
-            : <img className={classes.img} src={banner.location} alt={banner.key} />}
+          <img className={classes.img} src={banner.location} alt={banner.key} />
         </picture>
       )}
+      <div className={classes.text}>
+        {banner.subtitle.trim() === '' ? null : (
+          <Typography className={classes.subtitle} variant="subtitle2" gutterBottom>
+            {banner.subtitle}
+          </Typography>
+        )}
+        {banner.title.trim() === '' ? null : (
+          <Typography className={classes.title} variant="h2" gutterBottom>
+            {banner.title}
+          </Typography>
+        )}
+        {banner.body.trim() === '' ? null : (
+          <Typography className={classes.body} variant="body1" gutterBottom>
+            {banner.body}
+          </Typography>
+        )}
+        {banner.caption.trim() === '' ? null : (
+          <Typography className={classes.caption} variant="caption" gutterBottom>
+            {banner.caption}
+          </Typography>
+        )}
+      </div>
     </section>
   );
 };
