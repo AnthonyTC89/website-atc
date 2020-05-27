@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Avatar from '@material-ui/core/Avatar';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
-import ModalImages from './ModalImages';
+import ModalGridImages from './ModalGridImages';
 import LoadingGif from './LoadingGif';
 import { ServicesFormInfo, buttons } from '../Info.json';
 
@@ -159,7 +159,7 @@ const ServicesForm = ({ editItem, closeForm }) => {
                 <img className={classes.img} src={service.location} alt={service.key} />
               </picture>
             )}
-            <ModalImages open={open} handleClose={handleClose} />
+            <ModalGridImages open={open} handleClose={handleClose} />
           </Grid>
         </Grid>
       </form>

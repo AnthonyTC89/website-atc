@@ -103,10 +103,10 @@ const UserForm = ({ session }) => {
         <Link href={hrefGravatar} target="_blank" rel="noopener">
           <Avatar alt={username} src={gravatar} />
         </Link>
-        <Typography component="h1" variant="h5">
+        <Typography component="h1" variant="h5" color="primary" gutterBottom>
           {title}
         </Typography>
-        <Typography variant="subtitle2" color="error" align="center">
+        <Typography variant="subtitle2" color="error" align="center" gutterBottom>
           {message}
         </Typography>
         <LoadingGif visible={loading} />

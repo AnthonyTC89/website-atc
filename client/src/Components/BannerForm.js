@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import ModalImages from './ModalImages';
+import ModalGridImages from './ModalGridImages';
 import LoadingGif from './LoadingGif';
 import { BannerFormInfo, buttons } from '../Info.json';
 
@@ -180,7 +180,7 @@ const BannerForm = () => {
                 <img className={classes.img} src={banner.location} alt={banner.key} />
               </picture>
             )}
-            <ModalImages open={open} handleClose={handleClose} />
+            <ModalGridImages open={open} handleClose={handleClose} />
           </Grid>
         </Grid>
       </form>

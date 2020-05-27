@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-import ModalImages from './ModalImages';
+import ModalGridImages from './ModalGridImages';
 import LoadingGif from './LoadingGif';
 import { AboutFormInfo, buttons } from '../Info.json';
 
@@ -164,7 +164,7 @@ const AboutForm = () => {
                 <img className={classes.img} src={about.location} alt={about.key} />
               </picture>
             )}
-            <ModalImages open={open} handleClose={handleClose} />
+            <ModalGridImages open={open} handleClose={handleClose} />
           </Grid>
         </Grid>
       </form>
