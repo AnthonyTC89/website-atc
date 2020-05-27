@@ -18,6 +18,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ModalImage from './ModalImage';
 import updateImages from '../redux/actions/updateImages';
 import LoadingGif from './LoadingGif';
 import { ImagesListInfo, buttons } from '../Info.json';
@@ -51,7 +52,7 @@ const useStyles = makeStyles({
 const columns = [
   { id: 'id', label: 'id', minWidth: 50, align: 'center' },
   { id: 'key', label: 'filename', minWidth: 150, align: 'center' },
-  { id: 'location', label: 'preview', minWidth: 200, align: 'center' },
+  { id: 'location', label: 'preview', minWidth: 100, align: 'center' },
   { id: 'actions', label: 'actions', minWidth: 50, align: 'center' },
 ];
 
@@ -64,11 +65,24 @@ const ImagesList = ({ images, changeImages }) => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
+  const [imageModal, setImageModal] = useState(null);
+
   const configS3 = {
     bucketName: process.env.REACT_APP_S3_BUCKET,
     region: process.env.REACT_APP_S3_BUCKET_REGION,
     accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.REACT_APP_AWS_SECRET_ACCESS_KEY,
+  };
+
+  const handleOpenModal = (item) => {
+    setImageModal(item);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setImageModal(null);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -188,9 +202,11 @@ const ImagesList = ({ images, changeImages }) => {
                   {item.key}
                 </TableCell>
                 <TableCell align="center">
-                  <picture className={classes.picture}>
-                    <img className={classes.img} src={item.location} alt={item.key} />
-                  </picture>
+                  <Button onClick={() => handleOpenModal(item)}>
+                    <picture className={classes.picture}>
+                      <img className={classes.img} src={item.location} alt={item.key} />
+                    </picture>
+                  </Button>
                 </TableCell>
                 <TableCell align="center">
                   <IconButton
@@ -216,6 +232,13 @@ const ImagesList = ({ images, changeImages }) => {
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
+      {openModal ? (
+        <ModalImage
+          open={openModal}
+          handleClose={handleCloseModal}
+          image={imageModal}
+        />
+      ) : null}
     </Paper>
   );
 };
