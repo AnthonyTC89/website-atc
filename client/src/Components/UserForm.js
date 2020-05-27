@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import CryptoJS from 'crypto-js';
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Link from '@material-ui/core/Link';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -47,6 +48,9 @@ const UserForm = ({ session }) => {
   const classes = useStyles();
   const { title } = UserFormInfo;
   const { update, wait } = buttons;
+  const hash = CryptoJS.MD5(email);
+  const gravatar = `https://www.gravatar.com/avatar/${hash}`;
+  const hrefGravatar = 'https://en.gravatar.com/site/login';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,9 +100,9 @@ const UserForm = ({ session }) => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <AccountCircleIcon />
-        </Avatar>
+        <Link href={hrefGravatar} target="_blank" rel="noopener">
+          <Avatar alt={username} src={gravatar} />
+        </Link>
         <Typography component="h1" variant="h5">
           {title}
         </Typography>
