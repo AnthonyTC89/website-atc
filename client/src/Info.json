@@ -53,12 +53,12 @@
     ],
     "secondaryListItems": [
       { 
-        "name": "Products",
+        "name": "Productos",
         "component": "ProductsList",
         "icon": "StoreIcon"
       },
       {
-        "name": "Services",
+        "name": "Servicios",
         "component": "ServicesList",
         "icon": "WorkIcon"
       }

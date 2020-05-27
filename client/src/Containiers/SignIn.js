@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import updateSession from '../redux/actions/updateSession';
-import Footer from '../Components/Footer';
 import LoadingGif from '../Components/LoadingGif';
 import { signInInfo, buttons } from '../Info.json';
 
@@ -74,66 +73,63 @@ const SignIn = ({ session, history, changeSession }) => {
   };
 
   return (
-    <>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <div className={classes.paper}>
-          <IconButton onClick={closeSignIn}>
-            <Avatar className={classes.avatar}>
-              <ArrowBackIcon />
-            </Avatar>
-          </IconButton>
-          <Typography component="h1" variant="h5">
-            {title}
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <IconButton onClick={closeSignIn}>
+          <Avatar className={classes.avatar}>
+            <ArrowBackIcon />
+          </Avatar>
+        </IconButton>
+        <Typography component="h1" variant="h5">
+          {title}
+        </Typography>
+        {error === null ? null : (
+          <Typography variant="subtitle2" color="error" gutterBottom>
+            {error}
           </Typography>
-          {error === null ? null : (
-            <Typography variant="subtitle2" color="error" gutterBottom>
-              {error}
-            </Typography>
-          )}
-          <LoadingGif visible={loading} />
-          <form className={classes.form} onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="usuario"
-              name="username"
-              value={username}
-              autoComplete="username"
-              onChange={(e) => setUsername(e.target.value)}
-              autoFocus
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="password"
-              name="password"
-              label="contraseña"
-              type="password"
-              value={password}
-              autoComplete="current-password"
-              onChange={event => setPassword(event.target.value)}
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-              disabled={loading}
-            >
-              {loading ? wait : login}
-            </Button>
-          </form>
-        </div>
-      </Container>
-      <Footer />
-    </>
+        )}
+        <LoadingGif visible={loading} />
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="username"
+            label="usuario"
+            name="username"
+            value={username}
+            autoComplete="username"
+            onChange={(e) => setUsername(e.target.value)}
+            autoFocus
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            name="password"
+            label="contraseña"
+            type="password"
+            value={password}
+            autoComplete="current-password"
+            onChange={event => setPassword(event.target.value)}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit}
+            disabled={loading}
+          >
+            {loading ? wait : login}
+          </Button>
+        </form>
+      </div>
+    </Container>
   );
 };
 
