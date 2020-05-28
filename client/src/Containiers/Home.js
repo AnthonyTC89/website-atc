@@ -12,9 +12,7 @@ const Home = ({ history }) => {
 
   return (
     <>
-      <header>
-        <Navbar openSignIn={openSignIn} />
-      </header>
+      <Navbar openSignIn={openSignIn} />
       <main>
         <BannerShow />
       </main>

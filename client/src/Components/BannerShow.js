@@ -6,6 +6,14 @@ import LoadingGif from './LoadingGif';
 import maintenance from '../Images/maintenance.jpg';
 
 const useStyles = makeStyles({
+  root: {
+    position: 'relative',
+    maxHeight: window.innerHeight,
+    overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   picture: {
     width: '100%',
   },
@@ -74,7 +82,7 @@ const Banner = () => {
   }, []);
 
   return (
-    <section id="home">
+    <section className={classes.root} id="home">
       {loading ? <LoadingGif visible={loading} /> : (
         <picture className={classes.picture}>
           <img className={classes.img} src={banner.location} alt={banner.key} />

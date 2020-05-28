@@ -5,40 +5,59 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import Link from '@material-ui/core/Link';
+import HomeIcon from '@material-ui/icons/Home';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
+    opacity: '70%',
   },
   title: {
     flexGrow: 1,
   },
-}));
+  container: {
+    position: 'absolute',
+    left: '50%',
+    top: '50%',
+    transform: 'translate(-50%, -50%)',
+    justifyContent: 'center',
+  },
+  link: {
+    margin: '1rem',
+    alignSelf: 'center',
+  },
+});
 
 const Navbar = ({ openSignIn }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Restaurant
-          </Typography>
-          <IconButton edge="start" onClick={openSignIn} color="inherit" aria-label="menu">
-            <AccountCircleIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="fixed" className={classes.root} color="inherit">
+      <Toolbar>
+        <Typography variant="h6" className={classes.title}>
+          Website
+        </Typography>
+        <Grid container className={classes.container}>
+          <Link href="#about" color="inherit" className={classes.link}>
+            Nosotros
+          </Link>
+          <Divider orientation="vertical" flexItem />
+          <Link href="#home" color="inherit" className={classes.link}>
+            <HomeIcon />
+          </Link>
+          <Divider orientation="vertical" flexItem />
+          <Link href="#contact" color="inherit" className={classes.link}>
+            Contacto
+          </Link>
+        </Grid>
+        <IconButton edge="start" onClick={openSignIn} color="inherit" aria-label="menu">
+          <AccountCircleIcon />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   );
 };
 
