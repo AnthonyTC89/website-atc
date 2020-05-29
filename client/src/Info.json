@@ -38,6 +38,10 @@
   "ServicesFormInfo" : {
     "title": "Servicios"
   },
+  "DefaultItem" : {
+    "title": "Item Title",
+    "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab dolor libero cupiditate omnis ut possimus repellat quam, incidunt reiciendis architecto? Ullam sunt rerum, dolorum aliquam vitae cupiditate neque numquam vero!"
+  },
   "DashboardInfo": {
     "mainListItems": [
       { 

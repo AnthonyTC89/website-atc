@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Navbar from '../Components/Navbar';
 import BannerShow from '../Components/BannerShow';
+import AboutShow from '../Components/AboutShow';
 import Footer from '../Components/Footer';
 
 const Home = ({ history }) => {
@@ -15,6 +16,7 @@ const Home = ({ history }) => {
       <Navbar openSignIn={openSignIn} />
       <main>
         <BannerShow />
+        <AboutShow />
       </main>
       <Footer />
     </>
