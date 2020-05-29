@@ -30,19 +30,19 @@ const useStyles = makeStyles({
   },
   title: {
     fontWeight: 'bold',
-    fontSize: '5em',
+    fontSize: '8vw',
   },
   subtitle: {
     fontWeight: 'bold',
-    fontSize: '3em',
+    fontSize: '4.8vw',
   },
   body: {
     fontWeight: 'bold',
-    fontSize: '2em',
+    fontSize: '3.2vw',
   },
   caption: {
     fontWeight: 'bold',
-    fontSize: '1em',
+    fontSize: '1.6vw',
   },
 });
 
