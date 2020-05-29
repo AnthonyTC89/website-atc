@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Navbar from '../Components/Navbar';
 import BannerShow from '../Components/BannerShow';
 import AboutShow from '../Components/AboutShow';
+import ContactShow from '../Components/ContactShow';
 import Footer from '../Components/Footer';
 
 const Home = ({ history }) => {
@@ -17,6 +18,7 @@ const Home = ({ history }) => {
       <main>
         <BannerShow />
         <AboutShow />
+        <ContactShow />
       </main>
       <Footer />
     </>

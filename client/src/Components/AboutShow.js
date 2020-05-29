@@ -9,6 +9,7 @@ import { DefaultItem } from '../Info.json';
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    margin: '2rem auto',
   },
   title: {
     fontWeight: 400,
