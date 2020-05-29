@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import loadingGif from '../Images/loading.gif';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles({
   picture: {
     display: 'block',
     width: '100%',
     textAlign: 'center',
-  },
-  img: {
-    maxWidth: '3rem',
   },
 });
 
@@ -19,7 +16,7 @@ const LoadingGif = ({ visible }) => {
   return (
     visible ? (
       <picture className={classes.picture}>
-        <img className={classes.img} src={loadingGif} alt="icon-loading" />
+        <CircularProgress />
       </picture>
     ) : null
   );
