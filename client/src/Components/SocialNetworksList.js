@@ -20,7 +20,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import LoadingGif from './LoadingGif';
 import SocialNetworksForm from './SocialNetworksForm';
-import { SocialNetworksListInfo } from '../Info.json';
+import { SocialNetworksInfo } from '../Info.json';
 
 const useStyles = makeStyles({
   root: {
@@ -56,7 +56,7 @@ const columns = [
 ];
 
 const SocialNetworkList = () => {
-  const { title } = SocialNetworksListInfo;
+  const { title } = SocialNetworksInfo;
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);

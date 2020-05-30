@@ -13,7 +13,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import LoadingGif from './LoadingGif';
-import { SocialNetworksFormInfo, buttons } from '../Info.json';
+import { SocialNetworksInfo, buttons } from '../Info.json';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +35,7 @@ const SocialNetworksForm = ({ closeForm, editItem }) => {
   const [socialNetwork, setSocialNetwork] = useState(editItem);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState(null);
-  const { title } = SocialNetworksFormInfo;
+  const { title } = SocialNetworksInfo;
   const { add, update, wait } = buttons;
   const btnText = socialNetwork.id == null ? add : update;
 

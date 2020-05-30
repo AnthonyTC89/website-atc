@@ -26,6 +26,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import PeopleIcon from '@material-ui/icons/People';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
+import AppleIcon from '@material-ui/icons/Apple';
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import InfoIcon from '@material-ui/icons/Info';
@@ -44,6 +45,7 @@ const icons = {
   AssignmentIcon: <AssignmentIcon />,
   PeopleIcon: <PeopleIcon />,
   PhotoLibraryIcon: <PhotoLibraryIcon />,
+  AppleIcon: <AppleIcon />,
   PanoramaIcon: <PanoramaIcon />,
   ContactPhoneIcon: <ContactPhoneIcon />,
   InfoIcon: <InfoIcon />,

@@ -1,6 +1,7 @@
 import UserForm from '../../Components/UserForm';
 import UserList from '../../Components/UserList';
 import ImagesList from '../../Components/ImagesList';
+import LogoForm from '../../Components/LogoForm';
 import BannerForm from '../../Components/BannerForm';
 import AboutForm from '../../Components/AboutForm';
 import ContactForm from '../../Components/ContactForm';
@@ -16,6 +17,7 @@ const collection = {
   UserForm,
   UserList,
   ImagesList,
+  LogoForm,
   BannerForm,
   AboutForm,
   ContactForm,

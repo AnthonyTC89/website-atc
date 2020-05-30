@@ -19,7 +19,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import LoadingGif from './LoadingGif';
 import ProductsForm from './ProductsForm';
-import { ProductsListInfo } from '../Info.json';
+import { ProductsInfo } from '../Info.json';
 
 const useStyles = makeStyles({
   root: {
@@ -158,7 +158,7 @@ const ProductsList = () => {
   return (
     <Paper className={classes.root}>
       <Typography variant="h4" align="center" color="primary" gutterBottom>
-        {ProductsListInfo.title}
+        {ProductsInfo.title}
       </Typography>
       <Typography variant="subtitle2" align="center" color="error" gutterBottom>
         {message}

@@ -13,7 +13,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalGridImages from './ModalGridImages';
 import LoadingGif from './LoadingGif';
-import { ProductsFormInfo, buttons } from '../Info.json';
+import { ProductsInfo, buttons } from '../Info.json';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProductsForm = ({ editItem, closeForm }) => {
   const classes = useStyles();
-  const { title } = ProductsFormInfo;
+  const { title } = ProductsInfo;
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);

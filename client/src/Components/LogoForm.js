@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -7,21 +6,14 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Avatar from '@material-ui/core/Avatar';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 import ModalGridImages from './ModalGridImages';
 import LoadingGif from './LoadingGif';
-import { ServicesInfo, buttons } from '../Info.json';
+import { LogoFormInfo, buttons } from '../Info.json';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
     width: '100%',
-    textAlign: 'center',
-  },
-  avatar: {
-    backgroundColor: theme.palette.primary.main,
   },
   picture: {
     width: '100%',
@@ -36,22 +28,22 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
-}));
+});
 
-const ServicesForm = ({ editItem, closeForm }) => {
+const LogoForm = () => {
   const classes = useStyles();
-  const { title } = ServicesInfo;
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [service, setService] = useState(editItem);
+  const [open, setOpen] = React.useState(false);
+  const [logo, setLogo] = useState({
+    id: null, title: '', text: '', image_id: null, location: '', key: '',
+  });
 
-  const { add, update, wait, select } = buttons;
-  const btnText = service.id == null ? add : update;
+  const { update, wait, select } = buttons;
 
   const handleChange = (e) => {
     e.persist();
-    setService((prev) => (
+    setLogo((prev) => (
       { ...prev, [e.target.name]: e.target.value }
     ));
   };
@@ -61,11 +53,28 @@ const ServicesForm = ({ editItem, closeForm }) => {
     setLoading(true);
     setMessage(null);
     try {
-      const res = service.id == null
-        ? await axios.post('api/services/', service)
-        : await axios.put(`api/services/${service.id}`, service);
+      const res = logo.id == null
+        ? await axios.post('api/logos/', logo)
+        : await axios.put(`api/logos/${logo.id}`, logo);
+      setLogo((prev) => ({ ...prev, id: res.data.id }));
+      setMessage(res.statusText);
+    } catch (err) {
+      if (err.response) {
+        setMessage(err.response.statusText);
+      }
+    } finally {
       setLoading(false);
-      closeForm({ ...service, id: res.data.id });
+    }
+  };
+
+  const getLogo = async () => {
+    setLoading(true);
+    setMessage(null);
+    try {
+      const res = await axios.get('/api/logos_full');
+      if (res.data.length !== 0) {
+        setLogo(res.data[0]);
+      }
     } catch (err) {
       if (err.response) {
         setMessage(err.response.statusText);
@@ -82,7 +91,7 @@ const ServicesForm = ({ editItem, closeForm }) => {
   const handleClose = (image) => {
     setOpen(false);
     if (image.id) {
-      setService((prev) => (
+      setLogo((prev) => (
         { ...prev,
           image_id: image.id,
           location: image.location,
@@ -92,25 +101,21 @@ const ServicesForm = ({ editItem, closeForm }) => {
     }
   };
 
+  useEffect(() => {
+    getLogo();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <Paper className={classes.root}>
       <CssBaseline />
       <Typography variant="h4" align="center" color="primary" gutterBottom>
-        {title}
+        {LogoFormInfo.title}
       </Typography>
       <Typography variant="subtitle2" align="center" color="error" gutterBottom>
         {message}
       </Typography>
       <LoadingGif visible={loading} />
-      <IconButton
-        aria-label="return"
-        disabled={loading}
-        onClick={closeForm}
-      >
-        <Avatar className={classes.avatar}>
-          <ArrowBackIcon />
-        </Avatar>
-      </IconButton>
       <form className={classes.form} noValidate onSubmit={handleSubmit}>
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} className={classes.column}>
@@ -121,26 +126,15 @@ const ServicesForm = ({ editItem, closeForm }) => {
               color="primary"
               disabled={loading}
             >
-              {loading ? wait : btnText}
+              {loading ? wait : update}
             </Button>
             <TextField
               margin="dense"
-              name="title"
-              variant="outlined"
-              id="title"
-              value={service.title}
-              label="titulo"
-              onChange={handleChange}
-            />
-            <TextField
-              margin="dense"
               name="text"
-              multiline
-              rows={6}
               variant="outlined"
               id="text"
-              value={service.text}
-              label="descripción"
+              value={logo.text}
+              label="texto"
               onChange={handleChange}
             />
           </Grid>
@@ -154,9 +148,9 @@ const ServicesForm = ({ editItem, closeForm }) => {
             >
               {loading ? wait : select}
             </Button>
-            {service.image_id == null ? null : (
+            {logo.image_id == null ? null : (
               <picture className={classes.picture}>
-                <img className={classes.img} src={service.location} alt={service.key} />
+                <img className={classes.img} src={logo.location} alt={logo.key} />
               </picture>
             )}
             <ModalGridImages open={open} handleClose={handleClose} />
@@ -167,9 +161,4 @@ const ServicesForm = ({ editItem, closeForm }) => {
   );
 };
 
-ServicesForm.propTypes = {
-  editItem: PropTypes.object.isRequired,
-  closeForm: PropTypes.func.isRequired,
-};
-
-export default ServicesForm;
+export default LogoForm;

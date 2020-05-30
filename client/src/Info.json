@@ -3,7 +3,7 @@
     "title" : "Ingreso"
   },
   "UserFormInfo": {
-    "title": "Usuario"
+    "title": "Perfil"
   },
   "UserListInfo": {
     "title": "Usuarios"
@@ -11,32 +11,26 @@
   "ImagesListInfo": {
     "title": "Imágenes"
   },
-  "BannerFormInfo": {
-    "title": "Banner"
-  },
   "AboutFormInfo": {
     "title": "Acerca de"
+  },
+  "BannerFormInfo": {
+    "title": "Banner"
   },
   "ContactFormInfo": {
     "title": "Contacto"
   },
-  "SocialNetworksListInfo": {
-    "title": "Redes Sociales"
+  "LogoFormInfo": {
+    "title": "Logo"
   },
-  "SocialNetworksFormInfo": {
-    "title": "Redes Sociales"
-  },
-  "ProductsListInfo": {
+  "ProductsInfo": {
     "title": "Productos"
   },
-  "ProductsFormInfo" : {
-    "title": "Productos"
-  },
-  "ServicesListInfo": {
+  "ServicesInfo": {
     "title": "Servicios"
   },
-  "ServicesFormInfo" : {
-    "title": "Servicios"
+  "SocialNetworksInfo": {
+    "title": "Redes Sociales"
   },
   "DefaultItem" : {
     "title": "Item Title",
@@ -68,6 +62,11 @@
       }
     ],
     "homeListItems": [
+      { 
+        "name": "Logo",
+        "component": "LogoForm",
+        "icon": "AppleIcon"
+      },
       { 
         "name": "Banner",
         "component": "BannerForm",
