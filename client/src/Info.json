@@ -32,6 +32,11 @@
   "SocialNetworksInfo": {
     "title": "Redes Sociales"
   },
+  "FooterInfo": {
+    "authorName": "AnthonyTC89",
+    "authorUrl": "https://github.com/AnthonyTC89",
+    "copyright": "All Rights Reserved."
+  },
   "DefaultItem" : {
     "title": "Item Title",
     "text": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab dolor libero cupiditate omnis ut possimus repellat quam, incidunt reiciendis architecto? Ullam sunt rerum, dolorum aliquam vitae cupiditate neque numquam vero!"

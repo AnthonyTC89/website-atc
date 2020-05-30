@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
 import Hidden from '@material-ui/core/Hidden';
+import LoadingGif from './LoadingGif';
 
 const useStyles = makeStyles({
   root: {
@@ -18,6 +20,7 @@ const useStyles = makeStyles({
   },
   title: {
     flexGrow: 1,
+    fontSize: '2rem',
   },
   container: {
     position: 'absolute',
@@ -30,16 +33,51 @@ const useStyles = makeStyles({
     margin: '1rem',
     alignSelf: 'center',
   },
+  img: {
+    width: '2.5rem',
+  },
 });
+
+const emptyLogo = {
+  text: 'Website',
+};
 
 const Navbar = ({ openSignIn }) => {
   const classes = useStyles();
+  const [logo, setLogo] = useState(emptyLogo);
+  const [loading, setLoading] = useState(false);
 
+  const getLogo = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get('/api/logos_full');
+      if (res.data.length !== 0) {
+        setLogo(res.data[0]);
+      } else {
+        setLogo(emptyLogo);
+      }
+    } catch (err) {
+      if (err.response) {
+        setLogo(emptyLogo);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getLogo();
+    // eslint-disable-next-line
+  }, []);
+
+  if (loading) {
+    return <LoadingGif visible={loading} />;
+  }
   return (
     <AppBar position="fixed" className={classes.root} color="inherit">
       <Toolbar>
         <Typography variant="h6" className={classes.title}>
-          Website
+          {logo.text}
         </Typography>
         <Grid container className={classes.container}>
           <Hidden xsDown>
@@ -55,7 +93,9 @@ const Navbar = ({ openSignIn }) => {
             <Divider orientation="vertical" flexItem />
           </Hidden>
           <Link href="#home" color="inherit" className={classes.link}>
-            <HomeIcon />
+            {logo.image_id == null ? <HomeIcon /> : (
+              <img className={classes.img} src={logo.location} alt={logo.key} />
+            )}
           </Link>
           <Hidden smDown>
             <Divider orientation="vertical" flexItem />

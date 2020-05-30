@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core/styles';
 import EmailIcon from '@material-ui/icons/Email';
 import PhoneIcon from '@material-ui/icons/Phone';
@@ -94,12 +95,14 @@ const ContactShow = () => {
   }
   return (
     <Grid container component="section" className={classes.root} id="contact">
-      <Grid item xs={12} md={4} className={classes.columnImg}>
-        <picture className={classes.picture}>
-          <img className={classes.img} src={contact.location} alt={contact.key} />
-        </picture>
-      </Grid>
-      <Grid item xs={12} md={4} className={classes.columnImg}>
+      <Hidden smDown>
+        <Grid item xs={12} md={4} className={classes.columnImg}>
+          <picture className={classes.picture}>
+            <img className={classes.img} src={contact.location} alt={contact.key} />
+          </picture>
+        </Grid>
+      </Hidden>
+      <Grid item xs={12} sm={6} md={4} className={classes.columnImg}>
         <Typography className={classes.title} variant="h2">
           {contact.title}
         </Typography>
@@ -122,7 +125,7 @@ const ContactShow = () => {
           </Typography>
         </div>
       </Grid>
-      <Grid item xs={12} md={4} className={classes.columnImg}>
+      <Grid item xs={12} sm={6} md={4} className={classes.columnImg}>
         <GoogleMaps
           googleMapURL={googleMapURL}
           containerElement={containerElement}

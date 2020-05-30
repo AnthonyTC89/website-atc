@@ -30,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
   },
   img: {
-    width: '60%',
+    maxWidth: '60%',
+    maxHeight: '10rem',
     boxShadow: `0px 10px 15px 0px ${theme.palette.primary.main}`,
   },
 }));

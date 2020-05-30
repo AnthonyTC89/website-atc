@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Link from '@material-ui/core/Link';
 import LoadingGif from './LoadingGif';
+import { FooterInfo } from '../Info.json';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -31,6 +32,7 @@ const Footer = () => {
   const [loading, setLoading] = useState(false);
   const [socialNetworks, setSocialNetworks] = useState([]);
   const year = new Date().getFullYear();
+  const { authorName, authorUrl, copyright } = FooterInfo;
 
   const getSocialNetworks = async () => {
     setLoading(true);
@@ -55,27 +57,29 @@ const Footer = () => {
   return (
     <footer className={classes.footer}>
       <CssBaseline />
-      <div className={classes.list}>
-        {socialNetworks.map((item) => (
-          <a
-            key={uuidv4()}
-            href={item.href}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img className={classes.icon} src={item.src} alt={`${item.name}-icon`} />
-          </a>
-        ))}
-      </div>
+      {socialNetworks.length === 0 ? null : (
+        <div className={classes.list}>
+          {socialNetworks.map((item) => (
+            <a
+              key={uuidv4()}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img className={classes.icon} src={item.src} alt={`${item.name}-icon`} />
+            </a>
+          ))}
+        </div>
+      )}
       <Container maxWidth="sm">
         <Typography variant="body2" color="textSecondary" align="center">
           {` ${year} © `}
-          <Link color="inherit" href="https://material-ui.com/">
-            AnthonyTC89
+          <Link color="inherit" href={authorUrl}>
+            {authorName}
           </Link>
         </Typography>
         <Typography variant="body2" color="textSecondary" align="center">
-          All Rights Reserved.
+          {copyright}
         </Typography>
       </Container>
     </footer>
