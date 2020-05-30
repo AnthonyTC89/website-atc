@@ -73,6 +73,7 @@ const About = () => {
     getAbout();
     // eslint-disable-next-line
   }, []);
+
   if (loading) {
     return <LoadingGif visible={loading} />;
   }
