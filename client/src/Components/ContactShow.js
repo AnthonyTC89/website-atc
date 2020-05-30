@@ -89,51 +89,51 @@ const ContactShow = () => {
     getContact();
     // eslint-disable-next-line
   }, []);
-
+  if (loading) {
+    return <LoadingGif visible={loading} />;
+  }
   return (
-    loading ? <LoadingGif visible={loading} /> : (
-      <Grid container component="section" className={classes.root} id="contact">
-        <Grid item xs={12} md={4} className={classes.columnImg}>
-          <picture className={classes.picture}>
-            <img className={classes.img} src={contact.location} alt={contact.key} />
-          </picture>
-        </Grid>
-        <Grid item xs={12} md={4} className={classes.columnImg}>
-          <Typography className={classes.title} variant="h2">
-            {contact.title}
-          </Typography>
-          <div className={classes.info}>
-            <EmailIcon className={classes.icon} />
-            <Typography className={classes.text}>
-              {contact.email}
-            </Typography>
-          </div>
-          <div className={classes.info}>
-            <PhoneIcon className={classes.icon} />
-            <Typography className={classes.text}>
-              {contact.mobile}
-            </Typography>
-          </div>
-          <div className={classes.info}>
-            <LocationOnIcon className={classes.icon} />
-            <Typography className={classes.text}>
-              {contact.address}
-            </Typography>
-          </div>
-        </Grid>
-        <Grid item xs={12} md={4} className={classes.columnImg}>
-          <GoogleMaps
-            googleMapURL={googleMapURL}
-            containerElement={containerElement}
-            mapElement={mapElement}
-            loadingElement={loadingElement}
-            zoom={contact.zoom}
-            lat={parseFloat(contact.lat)}
-            lng={parseFloat(contact.lng)}
-          />
-        </Grid>
+    <Grid container component="section" className={classes.root} id="contact">
+      <Grid item xs={12} md={4} className={classes.columnImg}>
+        <picture className={classes.picture}>
+          <img className={classes.img} src={contact.location} alt={contact.key} />
+        </picture>
       </Grid>
-    )
+      <Grid item xs={12} md={4} className={classes.columnImg}>
+        <Typography className={classes.title} variant="h2">
+          {contact.title}
+        </Typography>
+        <div className={classes.info}>
+          <EmailIcon className={classes.icon} />
+          <Typography className={classes.text}>
+            {contact.email}
+          </Typography>
+        </div>
+        <div className={classes.info}>
+          <PhoneIcon className={classes.icon} />
+          <Typography className={classes.text}>
+            {contact.mobile}
+          </Typography>
+        </div>
+        <div className={classes.info}>
+          <LocationOnIcon className={classes.icon} />
+          <Typography className={classes.text}>
+            {contact.address}
+          </Typography>
+        </div>
+      </Grid>
+      <Grid item xs={12} md={4} className={classes.columnImg}>
+        <GoogleMaps
+          googleMapURL={googleMapURL}
+          containerElement={containerElement}
+          mapElement={mapElement}
+          loadingElement={loadingElement}
+          zoom={contact.zoom}
+          lat={parseFloat(contact.lat)}
+          lng={parseFloat(contact.lng)}
+        />
+      </Grid>
+    </Grid>
   );
 };
 

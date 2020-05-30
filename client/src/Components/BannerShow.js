@@ -80,14 +80,14 @@ const Banner = () => {
     getBanner();
     // eslint-disable-next-line
   }, []);
-
+  if (loading) {
+    return <LoadingGif visible={loading} />;
+  }
   return (
     <section className={classes.root} id="home">
-      {loading ? <LoadingGif visible={loading} /> : (
-        <picture className={classes.picture}>
-          <img className={classes.img} src={banner.location} alt={banner.key} />
-        </picture>
-      )}
+      <picture className={classes.picture}>
+        <img className={classes.img} src={banner.location} alt={banner.key} />
+      </picture>
       <div className={classes.text}>
         {banner.subtitle.trim() === '' ? null : (
           <Typography className={classes.subtitle} variant="subtitle2" gutterBottom>

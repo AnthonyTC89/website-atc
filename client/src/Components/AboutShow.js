@@ -73,29 +73,29 @@ const About = () => {
     getAbout();
     // eslint-disable-next-line
   }, []);
-
+  if (loading) {
+    return <LoadingGif visible={loading} />;
+  }
   return (
     <section className={classes.root} id="about">
       <Typography className={classes.title} variant="h2">
         {about.title}
       </Typography>
-      {loading ? <LoadingGif visible={loading} /> : (
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} className={classes.columnText}>
-            <Typography
-              className={classes.text}
-              component="article"
-            >
-              {about.text}
-            </Typography>
-          </Grid>
-          <Grid item xs={12} md={6} className={classes.columnImg}>
-            <picture className={classes.picture}>
-              <img className={classes.img} src={about.location} alt={about.key} />
-            </picture>
-          </Grid>
+      <Grid container spacing={3}>
+        <Grid item xs={12} md={6} className={classes.columnText}>
+          <Typography
+            className={classes.text}
+            component="article"
+          >
+            {about.text}
+          </Typography>
         </Grid>
-      )}
+        <Grid item xs={12} md={6} className={classes.columnImg}>
+          <picture className={classes.picture}>
+            <img className={classes.img} src={about.location} alt={about.key} />
+          </picture>
+        </Grid>
+      </Grid>
     </section>
   );
 };
