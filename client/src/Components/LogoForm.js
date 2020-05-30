@@ -14,6 +14,7 @@ import { LogoFormInfo, buttons } from '../Info.json';
 const useStyles = makeStyles({
   root: {
     width: '100%',
+    padding: '1rem',
   },
   picture: {
     width: '100%',
@@ -21,7 +22,7 @@ const useStyles = makeStyles({
     margin: '0.5rem',
   },
   img: {
-    width: '60%',
+    maxWidth: '5rem',
   },
   column: {
     display: 'flex',
@@ -36,7 +37,7 @@ const LogoForm = () => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = React.useState(false);
   const [logo, setLogo] = useState({
-    id: null, title: '', text: '', image_id: null, location: '', key: '',
+    id: null, text: '', image_id: null, location: '', key: '',
   });
 
   const { update, wait, select } = buttons;
@@ -116,9 +117,9 @@ const LogoForm = () => {
         {message}
       </Typography>
       <LoadingGif visible={loading} />
-      <form className={classes.form} noValidate onSubmit={handleSubmit}>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} className={classes.column}>
+      <form className={classes.form} onSubmit={handleSubmit}>
+        <Grid container>
+          <Grid item xs={12} className={classes.column}>
             <Button
               className={classes.button}
               type="submit"
@@ -136,9 +137,8 @@ const LogoForm = () => {
               value={logo.text}
               label="texto"
               onChange={handleChange}
+              required
             />
-          </Grid>
-          <Grid item xs={12} md={6} className={classes.column}>
             <Button
               type="button"
               variant="contained"
