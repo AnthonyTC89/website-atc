@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_26_223930) do
+ActiveRecord::Schema.define(version: 2020_05_30_163604) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,15 @@ ActiveRecord::Schema.define(version: 2020_05_26_223930) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "logos", force: :cascade do |t|
+    t.string "text"
+    t.boolean "status", default: true
+    t.bigint "image_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["image_id"], name: "index_logos_on_image_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "title"
     t.string "text"
@@ -104,6 +113,7 @@ ActiveRecord::Schema.define(version: 2020_05_26_223930) do
   add_foreign_key "abouts", "images"
   add_foreign_key "banners", "images"
   add_foreign_key "contacts", "images"
+  add_foreign_key "logos", "images"
   add_foreign_key "products", "images"
   add_foreign_key "services", "images"
 end

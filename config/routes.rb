@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
     resources :images, only: [:index, :create, :destroy]
 
+    resources :logos, only: [:create, :update]
+    get "/logos_full", to: "logos#index_full"
+
     resources :banners, only: [:create, :update]
     get "/banners_full", to: "banners#index_full"
 
