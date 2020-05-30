@@ -81,7 +81,7 @@ const Banner = () => {
     // eslint-disable-next-line
   }, []);
   if (loading) {
-    return <LoadingGif visible={loading} />;
+    return <LoadingGif visible={loading} home />;
   }
   return (
     <section className={classes.root} id="home">

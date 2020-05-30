@@ -52,7 +52,7 @@ const Footer = () => {
   }, []);
 
   if (loading) {
-    return <LoadingGif visible={loading} />;
+    return <LoadingGif visible={loading} home />;
   }
   return (
     <footer className={classes.footer}>

@@ -59,7 +59,7 @@ const ProductsShow = () => {
   }, []);
 
   if (loading) {
-    return <LoadingGif visible={loading} />;
+    return <LoadingGif visible={loading} home />;
   }
   return (
     products.length === 0 ? null : (

@@ -71,7 +71,7 @@ const Navbar = ({ openSignIn }) => {
   }, []);
 
   if (loading) {
-    return <LoadingGif visible={loading} />;
+    return <LoadingGif visible={loading} home />;
   }
   return (
     <AppBar position="fixed" className={classes.root} color="inherit">

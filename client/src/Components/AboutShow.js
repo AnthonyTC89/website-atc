@@ -75,7 +75,7 @@ const About = () => {
   }, []);
 
   if (loading) {
-    return <LoadingGif visible={loading} />;
+    return <LoadingGif visible={loading} home />;
   }
   return (
     <section className={classes.root} id="about">

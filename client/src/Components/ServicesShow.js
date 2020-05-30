@@ -59,7 +59,7 @@ const ServicesShow = () => {
   }, []);
 
   if (loading) {
-    return <LoadingGif visible={loading} />;
+    return <LoadingGif visible={loading} home />;
   }
   return (
     services.length === 0 ? null : (
