@@ -6,7 +6,7 @@ import BannerShow from '../Components/BannerShow';
 import AboutShow from '../Components/AboutShow';
 import ProductsShow from '../Components/ProductsShow';
 import ServicesShow from '../Components/ServicesShow';
-// import ContactShow from '../Components/ContactShow';
+import ContactShow from '../Components/ContactShow';
 import Footer from '../Components/Footer';
 
 const Home = ({ history }) => {
@@ -22,7 +22,7 @@ const Home = ({ history }) => {
         <AboutShow />
         <ProductsShow />
         <ServicesShow />
-        {/* <ContactShow /> */}
+        <ContactShow />
       </main>
       <Footer />
     </>

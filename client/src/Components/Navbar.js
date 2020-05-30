@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
+import Hidden from '@material-ui/core/Hidden';
 
 const useStyles = makeStyles({
   root: {
@@ -41,17 +42,33 @@ const Navbar = ({ openSignIn }) => {
           Website
         </Typography>
         <Grid container className={classes.container}>
-          <Link href="#about" color="inherit" className={classes.link}>
-            Nosotros
-          </Link>
-          <Divider orientation="vertical" flexItem />
+          <Hidden xsDown>
+            <Link href="#products" color="inherit" className={classes.link}>
+              Productos
+            </Link>
+            <Divider orientation="vertical" flexItem />
+          </Hidden>
+          <Hidden smDown>
+            <Link href="#about" color="inherit" className={classes.link}>
+              Nosotros
+            </Link>
+            <Divider orientation="vertical" flexItem />
+          </Hidden>
           <Link href="#home" color="inherit" className={classes.link}>
             <HomeIcon />
           </Link>
-          <Divider orientation="vertical" flexItem />
-          <Link href="#contact" color="inherit" className={classes.link}>
-            Contacto
-          </Link>
+          <Hidden smDown>
+            <Divider orientation="vertical" flexItem />
+            <Link href="#contact" color="inherit" className={classes.link}>
+              Contacto
+            </Link>
+          </Hidden>
+          <Hidden xsDown>
+            <Divider orientation="vertical" flexItem />
+            <Link href="#services" color="inherit" className={classes.link}>
+              Servicios
+            </Link>
+          </Hidden>
         </Grid>
         <IconButton edge="start" onClick={openSignIn} color="inherit" aria-label="menu">
           <AccountCircleIcon />

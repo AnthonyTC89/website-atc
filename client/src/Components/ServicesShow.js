@@ -62,7 +62,7 @@ const ServicesShow = () => {
   }
   return (
     services.length === 0 ? null : (
-      <Grid container spacing={4} component="section" className={classes.root} id="contact">
+      <Grid container spacing={4} component="section" className={classes.root} id="services">
         <Grid item key={uuidv4()} xs={12}>
           <Typography className={classes.title} variant="h2">
             Servicios
