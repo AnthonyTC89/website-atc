@@ -9,8 +9,8 @@ import LoadingGif from './LoadingGif';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    margin: '2rem auto',
     textAlign: 'center',
+    width: '100%',
   },
   title: {
     fontWeight: 400,
