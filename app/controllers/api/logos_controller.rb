@@ -18,7 +18,7 @@ module Api
       render json: @logos
     end
 
-    # GET /logos_full
+    # GET /logos_home
     def index_home
       query = 'SELECT l.text, i.location, i.key'
       query << ' FROM logos as l'

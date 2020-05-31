@@ -45,7 +45,7 @@ const emptyLogo = {
 const Navbar = ({ openSignIn }) => {
   const classes = useStyles();
   const [logo, setLogo] = useState(emptyLogo);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const getLogo = async () => {
     setLoading(true);
@@ -57,9 +57,7 @@ const Navbar = ({ openSignIn }) => {
         setLogo(emptyLogo);
       }
     } catch (err) {
-      if (err.response) {
-        setLogo(emptyLogo);
-      }
+      setLogo(emptyLogo);
     } finally {
       setLoading(false);
     }
@@ -93,7 +91,7 @@ const Navbar = ({ openSignIn }) => {
             <Divider orientation="vertical" flexItem />
           </Hidden>
           <Link href="#home" color="inherit" className={classes.link}>
-            {logo.image_id == null ? <HomeIcon /> : (
+            {logo.location == null ? <HomeIcon /> : (
               <img className={classes.img} src={logo.location} alt={logo.key} />
             )}
           </Link>
