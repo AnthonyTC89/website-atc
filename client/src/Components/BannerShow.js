@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Typography from '@material-ui/core/Typography';
+import Grow from '@material-ui/core/Grow';
 import { makeStyles } from '@material-ui/core/styles';
 import LoadingGif from './LoadingGif';
 import maintenance from '../Images/maintenance.jpg';
@@ -85,9 +86,11 @@ const Banner = () => {
   }
   return (
     <section className={classes.root} id="home">
-      <picture className={classes.picture}>
-        <img className={classes.img} src={banner.location} alt={banner.key} />
-      </picture>
+      <Grow in timeout={2000}>
+        <picture className={classes.picture}>
+          <img className={classes.img} src={banner.location} alt={banner.key} />
+        </picture>
+      </Grow>
       <div className={classes.text}>
         {banner.subtitle.trim() === '' ? null : (
           <Typography className={classes.subtitle} variant="subtitle2" gutterBottom>

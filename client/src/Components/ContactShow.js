@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Grid from '@material-ui/core/Grid';
+import Grow from '@material-ui/core/Grow';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import { makeStyles } from '@material-ui/core/styles';
@@ -97,9 +98,11 @@ const ContactShow = () => {
     <Grid container component="section" className={classes.root} id="contact">
       <Hidden smDown>
         <Grid item xs={12} md={4} className={classes.columnImg}>
-          <picture className={classes.picture}>
-            <img className={classes.img} src={contact.location} alt={contact.key} />
-          </picture>
+          <Grow in timeout={2000} appear>
+            <picture className={classes.picture}>
+              <img className={classes.img} src={contact.location} alt={contact.key} />
+            </picture>
+          </Grow>
         </Grid>
       </Hidden>
       <Grid item xs={12} sm={6} md={4} className={classes.columnImg}>
@@ -126,15 +129,17 @@ const ContactShow = () => {
         </div>
       </Grid>
       <Grid item xs={12} sm={6} md={4} className={classes.columnImg}>
-        <GoogleMaps
-          googleMapURL={googleMapURL}
-          containerElement={containerElement}
-          mapElement={mapElement}
-          loadingElement={loadingElement}
-          zoom={contact.zoom}
-          lat={parseFloat(contact.lat)}
-          lng={parseFloat(contact.lng)}
-        />
+        <Grow in timeout={2000} appear>
+          <GoogleMaps
+            googleMapURL={googleMapURL}
+            containerElement={containerElement}
+            mapElement={mapElement}
+            loadingElement={loadingElement}
+            zoom={contact.zoom}
+            lat={parseFloat(contact.lat)}
+            lng={parseFloat(contact.lng)}
+          />
+        </Grow>
       </Grid>
     </Grid>
   );

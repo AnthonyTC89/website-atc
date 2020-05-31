@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Grow from '@material-ui/core/Grow';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -92,9 +93,11 @@ const About = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} md={6} className={classes.columnImg}>
-          <picture className={classes.picture}>
-            <img className={classes.img} src={about.location} alt={about.key} />
-          </picture>
+          <Grow in timeout={2000} appear>
+            <picture className={classes.picture}>
+              <img className={classes.img} src={about.location} alt={about.key} />
+            </picture>
+          </Grow>
         </Grid>
       </Grid>
     </section>

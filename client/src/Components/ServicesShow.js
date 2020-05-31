@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import Grid from '@material-ui/core/Grid';
+import Grow from '@material-ui/core/Grow';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import LoadingGif from './LoadingGif';
@@ -71,9 +72,11 @@ const ServicesShow = () => {
         </Grid>
         {services.map((item) => (
           <Grid item key={uuidv4()} xs={12} sm={6} md component="article">
-            <picture className={classes.picture}>
-              <img className={classes.img} src={item.location} alt={item.key} />
-            </picture>
+            <Grow in timeout={2000} appear mountOnEnter>
+              <picture className={classes.picture}>
+                <img className={classes.img} src={item.location} alt={item.key} />
+              </picture>
+            </Grow>
             <Typography className={classes.subtitle} variant="subtitle2">
               {item.title}
             </Typography>
