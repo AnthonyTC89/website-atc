@@ -105,10 +105,10 @@ const ImagesList = ({ images, changeImages }) => {
       const newRecipe = { id: res.data.id, key, location };
       changeImages([...images, newRecipe]);
     } catch (err) {
-      if (err.statusText) {
-        setMessage(err.statusText);
-      } else {
+      if (err.response) {
         setMessage(err.response.statusText);
+      } else {
+        setMessage('error');
       }
     } finally {
       setLoading(false);
@@ -123,10 +123,10 @@ const ImagesList = ({ images, changeImages }) => {
       await deleteFile(image.key, configS3);
       changeImages(images.filter((img) => img.id !== image.id));
     } catch (err) {
-      if (err.statusText) {
-        setMessage(err.statusText);
-      } else {
+      if (err.response) {
         setMessage(err.response.statusText);
+      } else {
+        setMessage('error');
       }
     } finally {
       setLoading(false);
