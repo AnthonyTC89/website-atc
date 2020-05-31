@@ -18,6 +18,16 @@ module Api
       render json: @logos
     end
 
+    # GET /logos_full
+    def index_home
+      query = 'SELECT l.text, i.location, i.key'
+      query << ' FROM logos as l'
+      query << ' INNER JOIN images as i ON l.image_id = i.id'
+      query << ' WHERE l.status = true'
+      @logos = Logo.connection.select_all(query).to_a
+      render json: @logos
+    end
+
     # GET /logos/1
     # def show
     #   render json: @logo

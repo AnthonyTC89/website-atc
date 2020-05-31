@@ -17,6 +17,16 @@ module Api
       render json: @contacts
     end
 
+    # GET /contacts_home
+    def index_home
+      query = 'SELECT c.title, c.email, c.mobile, c.address, c.zoom, c.lat, c.lng, i.location, i.key'
+      query << ' FROM Contacts as c' 
+      query << ' INNER JOIN images as i ON c.image_id = i.id'
+      query << ' WHERE c.status = true'
+      @contacts = Contact.connection.select_all(query).to_a
+      render json: @contacts
+    end
+
     # GET /contacts/1
     # def show
     #   render json: @contact

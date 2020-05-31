@@ -44,7 +44,7 @@ const ProductsShow = () => {
   const getProducts = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/products_full');
+      const res = await axios.get('/api/products_home');
       setProducts(res.data);
     } catch (err) {
       setProducts([]);

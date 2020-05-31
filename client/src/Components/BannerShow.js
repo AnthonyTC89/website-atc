@@ -63,7 +63,7 @@ const Banner = () => {
   const getBanner = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/banners_full');
+      const res = await axios.get('/api/banners_home');
       if (res.data.length !== 0) {
         setBanner(res.data[0]);
       } else {

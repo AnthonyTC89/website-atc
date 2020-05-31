@@ -4,7 +4,13 @@ module Api
 
     # GET /social_networks
     def index
-      @social_networks = SocialNetwork.all
+      @social_networks = SocialNetwork.all.order(:id)
+      render json: @social_networks
+    end
+
+    # GET /social_networks_home
+    def index_home
+      @social_networks = SocialNetwork.where(status: true).order(:id)
       render json: @social_networks
     end
 

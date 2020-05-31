@@ -12,22 +12,29 @@ Rails.application.routes.draw do
 
     resources :logos, only: [:create, :update]
     get "/logos_full", to: "logos#index_full"
+    get "/logos_home", to: "logos#index_home"
 
     resources :banners, only: [:create, :update]
     get "/banners_full", to: "banners#index_full"
+    get "/banners_home", to: "banners#index_home"
 
     resources :abouts, only: [:create, :update]
     get "/abouts_full", to: "abouts#index_full"
+    get "/abouts_home", to: "abouts#index_home"
 
     resources :contacts, only: [:create, :update]
     get "/contacts_full", to: "contacts#index_full"
+    get "/contacts_home", to: "contacts#index_home"
 
     resources :social_networks, only: [:index, :create, :update, :destroy]
+    get "/social_networks_home", to: "social_networks#index_home"
 
     resources :products, only: [:create, :update, :destroy]
     get "/products_full", to: "products#index_full"
+    get "/products_home", to: "products#index_home"
 
-    resources :services
+    resources :services, only: [:create, :update, :destroy]
     get "/services_full", to: "services#index_full"
+    get "/services_home", to: "services#index_home"
   end
 end

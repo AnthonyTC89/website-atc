@@ -44,7 +44,7 @@ const ServicesShow = () => {
   const getServices = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/services_full');
+      const res = await axios.get('/api/services_home');
       setServices(res.data);
     } catch (err) {
       setServices([]);

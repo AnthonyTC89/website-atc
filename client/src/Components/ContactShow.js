@@ -73,7 +73,7 @@ const ContactShow = () => {
   const getContact = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/abouts_full');
+      const res = await axios.get('/api/abouts_home');
       if (res.data.length !== 0) {
         setContact(res.data[0]);
       } else {

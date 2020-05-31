@@ -50,7 +50,7 @@ const Navbar = ({ openSignIn }) => {
   const getLogo = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/logos_full');
+      const res = await axios.get('/api/logos_home');
       if (res.data.length !== 0) {
         setLogo(res.data[0]);
       } else {

@@ -22,6 +22,16 @@ module Api
       render json: @abouts
     end
 
+    # GET /abouts_home
+    def index_home
+      query = 'SELECT t.title, t.text, i.location, i.key'
+      query << ' FROM abouts as t'
+      query << ' INNER JOIN images as i ON t.image_id = i.id'
+      query << ' WHERE t.status = true'
+      @abouts = About.connection.select_all(query).to_a
+      render json: @abouts
+    end
+
     # POST /abouts
     def create
       @about = About.new(about_params)

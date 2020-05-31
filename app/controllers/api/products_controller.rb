@@ -13,6 +13,18 @@ module Api
       query = 'SELECT p.id, p.title, p.text, p.status, p.image_id, i.location, i.key'
       query << ' FROM Products as p'
       query << ' INNER JOIN Images as i ON p.image_id = i.id'
+      query << ' ORDER BY p.id'
+      @products = Product.connection.select_all(query).to_a
+      render json: @products
+    end
+
+    # GET /products_home
+    def index_home
+      query = 'SELECT p.title, p.text, i.location, i.key'
+      query << ' FROM Products as p'
+      query << ' INNER JOIN Images as i ON p.image_id = i.id'
+      query << ' WHERE p.status = true'
+      query << ' ORDER BY p.id'
       @products = Product.connection.select_all(query).to_a
       render json: @products
     end

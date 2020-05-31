@@ -37,7 +37,7 @@ const Footer = () => {
   const getSocialNetworks = async () => {
     setLoading(true);
     try {
-      const res = await axios.get('/api/social_networks');
+      const res = await axios.get('/api/social_networks_home');
       setSocialNetworks(res.data);
     } catch (err) {
       setSocialNetworks([]);

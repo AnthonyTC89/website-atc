@@ -17,6 +17,16 @@ module Api
       render json: banners
     end
 
+    # GET /banners_home
+    def index_home
+      query = 'SELECT b.title, b.subtitle, b.body, b.caption, i.location, i.key'
+      query << ' FROM banners as b'
+      query << ' INNER JOIN images as i ON b.image_id = i.id'
+      query << ' WHERE b.status = true'
+      banners = Banner.connection.select_all(query).to_a
+      render json: banners
+    end
+
     # GET /banners/1
     # def show
     #   render json: @banner

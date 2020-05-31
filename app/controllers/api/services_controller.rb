@@ -13,6 +13,18 @@ module Api
       query = 'SELECT s.id, s.title, s.text, s.status, s.image_id, i.location, i.key'
       query << ' FROM Services as s'
       query << ' INNER JOIN Images as i ON s.image_id = i.id'
+      query << ' ORDER BY s.id'
+      @services = Service.connection.select_all(query).to_a
+      render json: @services
+    end
+
+    # GET /services_home
+    def index_home
+      query = 'SELECT s.title, s.text, i.location, i.key'
+      query << ' FROM Services as s'
+      query << ' INNER JOIN Images as i ON s.image_id = i.id'
+      query << ' WHERE s.status = true'
+      query << ' ORDER BY s.id'
       @services = Service.connection.select_all(query).to_a
       render json: @services
     end
