@@ -61,8 +61,8 @@ const emptyContact = {
 
 const ContactShow = () => {
   const classes = useStyles();
-  const [contact, setContact] = useState(emptyContact);
-  const [loading, setLoading] = useState(false);
+  const [contact, setContact] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const googleMapsKey = process.env.REACT_APP_KEY_API_GOOGLEMAPS;
   const googleMapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${googleMapsKey}`;

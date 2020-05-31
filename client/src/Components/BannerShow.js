@@ -57,8 +57,8 @@ const emptyBanner = {
 
 const Banner = () => {
   const classes = useStyles();
-  const [banner, setBanner] = useState(emptyBanner);
-  const [loading, setLoading] = useState(false);
+  const [banner, setBanner] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getBanner = async () => {
     setLoading(true);

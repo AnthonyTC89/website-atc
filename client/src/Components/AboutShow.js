@@ -50,8 +50,8 @@ const emptyAbout = {
 
 const About = () => {
   const classes = useStyles();
-  const [about, setAbout] = useState(emptyAbout);
-  const [loading, setLoading] = useState(false);
+  const [about, setAbout] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const getAbout = async () => {
     setLoading(true);
