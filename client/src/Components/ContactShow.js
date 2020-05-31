@@ -15,6 +15,8 @@ import maintenance from '../Images/maintenance.jpg';
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: '2rem auto',
+    padding: '2rem',
+    background: '#F2F9FF',
   },
   title: {
     fontWeight: 400,
@@ -32,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   columnImg: {
     textAlign: 'center',
+    padding: '0 2rem',
   },
   info: {
     display: 'flex',

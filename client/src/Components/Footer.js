@@ -9,11 +9,11 @@ import Link from '@material-ui/core/Link';
 import LoadingGif from './LoadingGif';
 import { FooterInfo } from '../Info.json';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   footer: {
     display: 'flex',
     flexDirection: 'column',
-    padding: theme.spacing(2, 2),
+    paddingBottom: '1rem',
     bottom: 0,
     width: '100%',
   },
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     width: '2rem',
   },
-}));
+});
 
 const Footer = () => {
   const classes = useStyles();

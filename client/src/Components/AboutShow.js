@@ -11,6 +11,8 @@ import { DefaultItem } from '../Info.json';
 const useStyles = makeStyles((theme) => ({
   root: {
     margin: '2rem auto',
+    padding: '2rem',
+    background: '#F2F9FF',
   },
   title: {
     fontWeight: 400,
