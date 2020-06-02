@@ -6,6 +6,7 @@ import Grow from '@material-ui/core/Grow';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import LoadingGif from './LoadingGif';
+import { ProductsInfo } from '../Info.json';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +68,7 @@ const ProductsShow = () => {
       <Grid container spacing={4} component="section" className={classes.root} id="products">
         <Grid item key={uuidv4()} xs={12}>
           <Typography className={classes.title} variant="h2">
-            Productos
+            {ProductsInfo.title}
           </Typography>
         </Grid>
         {products.map((item) => (

@@ -23,11 +23,11 @@ const useStyles = makeStyles({
   },
   text: {
     position: 'absolute',
-    top: '50%',
-    left: '50%',
+    top: '33%',
+    left: '49%',
     transform: 'translate(-50%, -50%)',
     textAlign: 'center',
-    color: 'white',
+    color: 'aliceblue',
   },
   title: {
     fontWeight: 'bold',

@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
   title: {
     flexGrow: 1,
-    fontSize: '2rem',
+    fontSize: '3vw',
   },
   container: {
     position: 'absolute',

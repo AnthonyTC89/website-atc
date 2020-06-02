@@ -1,36 +1,36 @@
 {
   "signInInfo": {
-    "title" : "Ingreso"
+    "title" : "Login"
   },
   "UserFormInfo": {
-    "title": "Perfil"
+    "title": "Profile"
   },
   "UserListInfo": {
-    "title": "Usuarios"
+    "title": "Users"
   },
   "ImagesListInfo": {
-    "title": "Imágenes"
+    "title": "Images"
   },
   "AboutFormInfo": {
-    "title": "Acerca de"
+    "title": "About section"
   },
   "BannerFormInfo": {
-    "title": "Banner"
+    "title": "Banner section"
   },
   "ContactFormInfo": {
-    "title": "Contacto"
+    "title": "Contact section"
   },
   "LogoFormInfo": {
     "title": "Logo"
   },
   "ProductsInfo": {
-    "title": "Productos"
+    "title": "Products"
   },
   "ServicesInfo": {
-    "title": "Servicios"
+    "title": "Services"
   },
   "SocialNetworksInfo": {
-    "title": "Redes Sociales"
+    "title": "Social Networks"
   },
   "FooterInfo": {
     "authorName": "AnthonyTC89",
@@ -44,24 +44,24 @@
   "DashboardInfo": {
     "mainListItems": [
       { 
-        "name": "Usuario",
+        "name": "User",
         "component": "UserForm",
         "icon": "AccountCircleIcon"
       },
       { 
-        "name": "Imagenes",
+        "name": "Images",
         "component": "ImagesList",
         "icon": "PhotoLibraryIcon"
       }
     ],
     "secondaryListItems": [
       { 
-        "name": "Productos",
+        "name": "Products",
         "component": "ProductsList",
         "icon": "StoreIcon"
       },
       {
-        "name": "Servicios",
+        "name": "Services",
         "component": "ServicesList",
         "icon": "WorkIcon"
       }
@@ -78,48 +78,37 @@
         "icon": "PanoramaIcon"
       },
       { 
-        "name": "Acerca de",
+        "name": "About",
         "component": "AboutForm",
         "icon": "InfoIcon"
       },
       { 
-        "name": "Contacto",
+        "name": "Contact",
         "component": "ContactForm",
         "icon": "ContactPhoneIcon"
       },
       { 
-        "name": "Redes Sociales",
+        "name": "Social Networks",
         "component": "SocialNetworksList",
         "icon": "PeopleIcon"
       }
     ],
     "adminListItems": [
       { 
-        "name": "Usuarios",
+        "name": "Users",
         "component": "UserList",
         "icon": "GroupAddIcon"
       }
     ]
   },
   "buttons": {
-    "login": "Ingresar",
-    "signin": "Registrar",
-    "add": "Agregar",
-    "update": "Actualizar",
-    "wait" : "Espere...",
-    "edit": "Editar",
-    "remove": "Eliminar",
-    "active": "Activar",
-    "inactive": "Desactivar",
-    "create": "Nuevo",
-    "back": "Volver",
-    "upgrade": "↑",
-    "downgrade": "↓",
-    "details": "Detalles",
-    "subjects": "Temas",
-    "schedule": "Horario",
-    "upload": "Guardar",
-    "download": "Descargar",
-    "select": "Seleccione"
+    "login": "Login",
+    "add": "Create",
+    "update": "Update",
+    "wait" : "Wait...",
+    "create": "Create",
+    "back": "Back",
+    "upload": "Upload",
+    "select": "Select"
   }
 }
