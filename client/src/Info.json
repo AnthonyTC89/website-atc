@@ -1,6 +1,8 @@
 {
   "signInInfo": {
-    "title" : "Login"
+    "title" : "Login",
+    "username": "username",
+    "password": "password"
   },
   "UserFormInfo": {
     "title": "Profile"

@@ -97,7 +97,7 @@ const SignIn = ({ session, history, changeSession }) => {
             required
             fullWidth
             id="username"
-            label="usuario"
+            label={signInInfo.username}
             name="username"
             value={username}
             autoComplete="username"
@@ -111,7 +111,7 @@ const SignIn = ({ session, history, changeSession }) => {
             fullWidth
             id="password"
             name="password"
-            label="contraseña"
+            label={signInInfo.password}
             type="password"
             value={password}
             autoComplete="current-password"
