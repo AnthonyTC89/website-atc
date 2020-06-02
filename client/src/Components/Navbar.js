@@ -13,6 +13,7 @@ import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
 import Hidden from '@material-ui/core/Hidden';
 import LoadingGif from './LoadingGif';
+import { NavbarInfo } from '../Info.json';
 
 const useStyles = makeStyles({
   root: {
@@ -46,6 +47,7 @@ const Navbar = ({ openSignIn }) => {
   const classes = useStyles();
   const [logo, setLogo] = useState(emptyLogo);
   const [loading, setLoading] = useState(true);
+  const { about, contact, products, services } = NavbarInfo;
 
   const getLogo = async () => {
     setLoading(true);
@@ -80,13 +82,13 @@ const Navbar = ({ openSignIn }) => {
         <Grid container className={classes.container}>
           <Hidden xsDown>
             <Link href="#products" color="inherit" className={classes.link}>
-              Productos
+              {products}
             </Link>
             <Divider orientation="vertical" flexItem />
           </Hidden>
           <Hidden smDown>
             <Link href="#about" color="inherit" className={classes.link}>
-              Nosotros
+              {about}
             </Link>
             <Divider orientation="vertical" flexItem />
           </Hidden>
@@ -98,13 +100,13 @@ const Navbar = ({ openSignIn }) => {
           <Hidden smDown>
             <Divider orientation="vertical" flexItem />
             <Link href="#contact" color="inherit" className={classes.link}>
-              Contacto
+              {contact}
             </Link>
           </Hidden>
           <Hidden xsDown>
             <Divider orientation="vertical" flexItem />
             <Link href="#services" color="inherit" className={classes.link}>
-              Servicios
+              {services}
             </Link>
           </Hidden>
         </Grid>

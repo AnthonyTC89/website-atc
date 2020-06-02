@@ -16,6 +16,12 @@
   "AboutFormInfo": {
     "title": "About section"
   },
+  "NavbarInfo" : {
+    "about": "About me",
+    "contact": "Contact",
+    "products": "Products",
+    "services": "Services"
+  },
   "BannerFormInfo": {
     "title": "Banner section"
   },
